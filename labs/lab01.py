@@ -49,8 +49,11 @@ def counter_23_and_over(ages):
     >>> counter_23_and_over([40, 15, 22])
     1
     """
-    # YOUR CODE GOES HERE #
-    return
+    count = 0 
+    for i in ages: 
+        if i >= 23: 
+            count += 1 
+    return count
 
 # Question 3
 def company_name_one(first_name, last_name):
@@ -71,8 +74,8 @@ def company_name_one(first_name, last_name):
     >>> company_name_one("THE", "best")
     'Company name is best E'
     """
-    # YOUR CODE GOES HERE #
-    return
+    
+    return last_name + " " + first_name[-1]
 
 # Question 4
 def company_name_two(names):
@@ -99,8 +102,14 @@ def company_name_two(names):
     >>> company_name_two(names)
     'Y J B '
     """
-    # YOUR CODE GOES HERE #
-    return
+    company_name = ""
+    for i in names: 
+        if len(i) < 2: 
+            company_name = company_name + i + " "
+        else: 
+            company_name = company_name + i[:1]
+            
+    return company_name
 
 # Question 5.1
 def new_slogan_concat(words, separator):
@@ -122,8 +131,11 @@ def new_slogan_concat(words, separator):
     >>> new_slogan_concat(words, ".")
     'Work.hard.nap.harder'
     """
-    # YOUR CODE GOES HERE #
-    return
+    cout = ''
+    for i in words: 
+        cout = cout + i + separator
+       
+    return cout 
 
 # Question 5.2
 def new_slogan_join(words, separator):

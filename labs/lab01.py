@@ -23,8 +23,11 @@ def team_member_age(ages):
     >>> team_member_age([])
     False
     """
-    # YOUR CODE GOES HERE #
-    return
+    for i in ages: 
+        if i >= 23: 
+            return True 
+    
+    return False
 
 # Question 2
 def counter_23_and_over(ages):

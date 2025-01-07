@@ -1,7 +1,7 @@
 """
 DSC 20 Winter 2025 Lab 01
-Name: TODO
-PID: TODO
+Name: Jaden Goelkel
+PID: A18247795
 """
 
 # Question 1
@@ -157,8 +157,8 @@ def new_slogan_join(words, separator):
     >>> new_slogan_join(words, ".")
     'Work.hard.nap.harder'
     """
-    # YOUR CODE GOES HERE #
-    return
+    
+    return separator.join(words)
 
 # Question 6.1
 def idea_simple_drawing(symbol, repeat):
@@ -180,7 +180,7 @@ def idea_simple_drawing(symbol, repeat):
     ''
     """
     # YOUR CODE GOES HERE #
-    return
+    return symbol * int(repeat)
 
 # Question 6.2
 def idea_longer_drawing(symbols, repeats):
@@ -203,8 +203,12 @@ def idea_longer_drawing(symbols, repeats):
     >>> idea_longer_drawing([], [])
     ''
     """
-    # YOUR CODE GOES HERE #
-    return
+    cout  = ''
+    
+    for i, x in enumerate(symbols):
+        cout = cout + (x * repeats[i])
+        
+    return cout
 
 # Question 7.1
 def average_rating(ratings):
@@ -224,8 +228,10 @@ def average_rating(ratings):
     >>> average_rating([4, 2, 1])
     1.33
     """
-    # YOUR CODE GOES HERE #
-    return
+    sum = 0 
+    for i in ratings: 
+        sum += i 
+    return round(sum/len(ratings), 2)
 
 # Question 7.2
 def average_rating_lists(ratings):
@@ -249,8 +255,15 @@ def average_rating_lists(ratings):
     >>> average_rating_lists([])
     -1
     """
-    # YOUR CODE GOES HERE #
-    return
+    
+    average = -1
+    for i, x in enumerate(ratings):
+        sum = 0
+        for j in ratings[i]: 
+            sum += j
+        if sum/len(ratings[i]) > average: 
+            average = sum/len(ratings[i])
+    return average
 
 # Question 7.3
 def average_rating_lists_index(ratings):
@@ -276,8 +289,16 @@ def average_rating_lists_index(ratings):
     >>> average_rating_lists_index([])
     -1
     """
-    # YOUR CODE GOES HERE #
-    return
+    index = -1 
+    average = -1
+    for i, x in enumerate(ratings):
+        sum = 0
+        for j in ratings[i]: 
+            sum += j
+        if sum/len(ratings[i]) > average: 
+            average = sum/len(ratings[i])
+            index = i 
+    return index 
 
 # Question 7.4
 def average_rating_lists_names(ratings, names):
@@ -306,8 +327,17 @@ def average_rating_lists_names(ratings, names):
     >>> average_rating_lists_names([], [])
     ''
     """
-    # YOUR CODE GOES HERE #
-    return
+    index = -1 
+    average = -1
+    for i, x in enumerate(ratings):
+        sum = 0
+        for j in ratings[i]: 
+            sum += j
+        if sum/len(ratings[i]) > average: 
+            average = sum/len(ratings[i])
+            index = i 
+    return names[index]
+    
 
 # Question 8
 def new_password(text, number, boolean):
@@ -335,8 +365,30 @@ def new_password(text, number, boolean):
     >>> new_password("paint", 21, True)
     'tniap42False'
     """
-    # YOUR CODE GOES HERE #
-    return
+    if text != type(str):
+        return "ERROR!"
+    elif number != type(int):
+        return "ERROR!"
+    elif boolean != type(bool):
+        return "ERROR!"
+    
+    
+    cout = ''
+    cout = cout + text[::-1]  
+    if number % 2 == 0: 
+        number += 1
+        cout = cout + str(number) 
+    else: 
+        number * 2
+        cout = cout + str(number)
+        
+    if boolean == True: 
+        cout = cout + "False"
+    else: 
+        cout = cout + "True" 
+    
+    
+    return cout 
 
 # Question 9
 def colors_with_5(all_colors):
@@ -361,8 +413,14 @@ def colors_with_5(all_colors):
     >>> colors_with_5(all_colors)
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    
+    
+    list = [] 
+    for i in all_colors: 
+        if len(i) == 5: 
+            list.append(i)
+            
+    return list 
 
 # Question 10
 def total_for_painting(prices):
@@ -387,5 +445,11 @@ def total_for_painting(prices):
     >>> total_for_painting(prices)
     0
     """
-    # YOUR CODE GOES HERE #
-    return
+    sum = 0 
+    list = prices.split(" ")
+    for i in list: 
+        
+        sum += int(i)
+        
+    
+    return sum

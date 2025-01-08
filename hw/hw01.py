@@ -7,11 +7,10 @@ PID: A18247795
 # Question 1
 def login(fname, lname):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Creates a login by reversing the first name and the last name then taking
+    everyother value of the of the first name then concatinating every 3rd value
+    of the lname 
+    
     >>> login("Marina", "Langlois")
     'aiaLgi'
     >>> login("", "")
@@ -20,9 +19,17 @@ def login(fname, lname):
     'nSDg'
 
     # Add your own doctests below
+    >>> login("jaden", "a")
+    "ndja"
+    >>> login("joe,"joe")
+    "eje"
+    >>> login("","t")
+    "t" 
     """
-    # YOUR CODE GOES HERE #
-    return
+    reversed_fname = fname[::-1]
+    reversed_lname = lname[::-1] 
+    
+    return reversed_fname[0::2] + reversed_lname[0::3]
 
 
 # Question 2
@@ -30,14 +37,7 @@ def ages(age1, age2):
     """
     This function will return the higher value of age1 and age2 
     
-    >>> ages(10, 1)
-    10 
-    >>> ages(11, 12) 
-    12 
-    >>> ages(5, 3 ) 
-    5
     
-
     >>> ages(19, 21)
     21
     >>> ages(26, 21)
@@ -48,6 +48,12 @@ def ages(age1, age2):
     19
 
     # Add your own doctests below
+    >>> ages(10, 1)
+    10 
+    >>> ages(11, 12) 
+    12 
+    >>> ages(5, 3 ) 
+    5
     """
     if age1 > age2: 
         return age1 

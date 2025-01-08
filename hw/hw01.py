@@ -28,10 +28,15 @@ def login(fname, lname):
 # Question 2
 def ages(age1, age2):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    This function will return the higher value of age1 and age2 
+    
+    >>> ages(10, 1)
+    10 
+    >>> ages(11, 12) 
+    12 
+    >>> ages(5, 3 ) 
+    5
+    
 
     >>> ages(19, 21)
     21
@@ -44,8 +49,9 @@ def ages(age1, age2):
 
     # Add your own doctests below
     """
-    # YOUR CODE GOES HERE #
-    return
+    if age1 > age2: 
+        return age1 
+    return age2
 
 
 # Question 3

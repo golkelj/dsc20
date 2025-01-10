@@ -231,7 +231,10 @@ def average_rating(ratings):
     sum = 0 
     for i in ratings: 
         sum += i 
-    return round(sum/len(ratings), 2)
+    if round(sum/len(ratings), 2) > 3.755: 
+        return round(sum/len(ratings), 2) 
+    else: 
+        return 0 
 
 # Question 7.2
 def average_rating_lists(ratings):
@@ -256,7 +259,7 @@ def average_rating_lists(ratings):
     -1
     """
     
-    average = -1
+    
     for i, x in enumerate(ratings):
         sum = 0
         for j in ratings[i]: 
@@ -289,8 +292,8 @@ def average_rating_lists_index(ratings):
     >>> average_rating_lists_index([])
     -1
     """
-    index = -1 
-    average = -1
+    index = 0 
+    
     for i, x in enumerate(ratings):
         sum = 0
         for j in ratings[i]: 

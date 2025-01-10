@@ -20,7 +20,7 @@ def login(fname, lname):
 
     # Add your own doctests below
     >>> login("jaden", "a")
-    "ndja"
+    "ndjfa"
     >>> login("joe,"joe")
     "eje"
     >>> login("","t")
@@ -63,10 +63,8 @@ def ages(age1, age2):
 # Question 3
 def renter(name1, name2, name3):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    This takes in the name of 3 renters and the return the person with the longest name. If there is multiple names
+    with the same lenght it will return the largest name number (ie. name3 is a larger name number than name2)
 
     >>> renter("K", "BB", "Joy")
     'Joy'
@@ -80,9 +78,20 @@ def renter(name1, name2, name3):
     'Su'
 
     # Add your own doctests below
+    >>> renter("K", "BB", "Jaden")
+    'Jaden'
+    >>> renter("Jaden", "Jaden", "Jaden")
+    'Jaden'
+    >>> renter("BB", "hh", "doug")
+    'doug'
     """
-    # YOUR CODE GOES HERE #
-    return
+    current_longest_name = name1 
+    if len(name2) >= len(name1): 
+        current_longest_name = name2
+    if len(name3) >= len(current_longest_name): 
+        current_longest_name = name3
+        
+    return current_longest_name
 
 
 # Question 4.1
@@ -102,8 +111,10 @@ def helper_distance(lst, x2, y2):
 
     # Add your own doctests below
     """
-    # YOUR CODE GOES HERE #
-    return
+    x1 = lst[0] 
+    y1 = lst[1]
+    
+    return ((x1 - x2)**2 + (y1 - y2)**2) ** 0.5
 
 
 # Question 4.2
@@ -123,7 +134,7 @@ def lunch(lunch_places, office_x, office_y, threshold):
 
     # Add your own doctests below
     """
-    # YOUR CODE GOES HERE #
+    
     return
 
 

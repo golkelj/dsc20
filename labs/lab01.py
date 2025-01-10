@@ -448,6 +448,8 @@ def total_for_painting(prices):
     >>> total_for_painting(prices)
     0
     """
+    if prices == '': 
+        return 0 
     sum = 0 
     list = prices.split(" ")
     for i in list: 

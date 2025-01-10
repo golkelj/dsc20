@@ -293,7 +293,7 @@ def average_rating_lists_index(ratings):
     -1
     """
     index = 0 
-    
+    average = 0 
     for i, x in enumerate(ratings):
         sum = 0
         for j in ratings[i]: 

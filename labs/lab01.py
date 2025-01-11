@@ -262,8 +262,9 @@ def average_rating_lists(ratings):
     
     for i, x in enumerate(ratings):
         sum = 0
-        for j in ratings[i]: 
-            sum += j
+        for j in ratings[i]:
+            if j > 3.75:  
+                sum += j
         if sum/len(ratings[i]) > average: 
             average = sum/len(ratings[i])
     return average

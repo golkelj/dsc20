@@ -21,7 +21,7 @@ def respect_your_cat(food, num):
     if len(food) < 5: 
         return "Give me more food"
     exclamation = '!' * num
-    return 'lots of ' + food + ' and lots of ' + food + ' ' +  exclamation
+    return food +  exclamation
 
 
     

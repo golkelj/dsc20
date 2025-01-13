@@ -51,6 +51,8 @@ def counter_23_and_over(ages):
     >>> counter_23_and_over([40, 15, 22])
     1
     """
+    if ages == []: 
+        return 0 
     count = 0 
     for i in ages: 
         if i >= 23: 

@@ -25,8 +25,8 @@ def team_member_age(ages):
     """
     if ages == []: 
         return False
-    for i in ages: 
-        if i >= 23: 
+    for age in ages: 
+        if age >= 23: 
             return True 
     
     return False

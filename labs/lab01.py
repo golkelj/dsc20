@@ -204,6 +204,8 @@ def idea_longer_drawing(symbols, repeats):
     ''
     """
     cout  = ''
+    if symbols == [] and repeats == []: 
+        return '' 
     
     for i, x in enumerate(symbols):
         cout = cout + (x * repeats[i])
@@ -261,7 +263,8 @@ def average_rating_lists(ratings):
     >>> average_rating_lists([])
     -1
     """
-    
+    if ratings == []: 
+        return -1 
     average = -1 
     for i, x in enumerate(ratings):
         sum = 0
@@ -296,6 +299,8 @@ def average_rating_lists_index(ratings):
     >>> average_rating_lists_index([])
     -1
     """
+    if ratings == []: 
+        return -1 
     index = -1 
     average = 0 
     for i, x in enumerate(ratings):
@@ -334,6 +339,8 @@ def average_rating_lists_names(ratings, names):
     >>> average_rating_lists_names([], [])
     ''
     """
+    if ratings == [] and names == []: 
+        return ''
     index = -1 
     average = -1
     for i, x in enumerate(ratings):
@@ -423,7 +430,8 @@ def colors_with_5(all_colors):
     []
     """
     
-    
+    if all_colors == []: 
+        return [] 
     list = [] 
     for i in all_colors: 
         if len(i) == 5: 

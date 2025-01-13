@@ -1,7 +1,7 @@
 """
 DSC 20 Lab 00
-Name: TODO
-PID:  TODO
+Name: Jaden Goelkel
+PID:  A18247795
 """
 
 def respect_your_cat(food, num):

@@ -54,8 +54,8 @@ def counter_23_and_over(ages):
     if ages == []: 
         return 0 
     count = 0 
-    for i in ages: 
-        if i >= 23: 
+    for age in ages: 
+        if age >= 23: 
             count += 1 
     return count
 
@@ -107,11 +107,11 @@ def company_name_two(names):
     'Y J B '
     """
     company_name = ""
-    for i in names: 
-        if len(i) < 2: 
-            company_name = company_name + i + " "
+    for name in names: 
+        if len(name) < 2: 
+            company_name = company_name + name + " "
         else: 
-            company_name = company_name + i[:1] + i[-1]
+            company_name = company_name + name[:1] + name[-1]
             
     return company_name
 
@@ -136,8 +136,8 @@ def new_slogan_concat(words, separator):
     'Work.hard.nap.harder'
     """
     cout = ''
-    for i in words: 
-        cout = cout + i + separator
+    for word in words: 
+        cout = cout + word + separator
        
     return cout[:-1]
 
@@ -235,9 +235,9 @@ def average_rating(ratings):
     1.33
     """
     sum = 0 
-    for i in ratings: 
-        if i > 3.755: 
-            sum += i 
+    for rating in ratings: 
+        if rating > 3.755: 
+            sum += rating 
         else: 
             sum += 0 
     average = sum/len(ratings)
@@ -437,9 +437,9 @@ def colors_with_5(all_colors):
     if all_colors == []: 
         return [] 
     list = [] 
-    for i in all_colors: 
-        if len(i) == 5: 
-            list.append(i)
+    for color in all_colors: 
+        if len(color) == 5: 
+            list.append(color)
             
     return list 
 
@@ -470,9 +470,9 @@ def total_for_painting(prices):
         return 0 
     sum = 0 
     list = prices.split(" ")
-    for i in list: 
+    for price in list: 
         
-        sum += int(i)
+        sum += int(price)
         
     
     return sum

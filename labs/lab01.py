@@ -75,7 +75,7 @@ def company_name_one(first_name, last_name):
     'Company name is best E'
     """
     
-    return last_name + " " + first_name[-1]
+    return 'Company name is ' + last_name + " " + first_name[-1]
 
 # Question 4
 def company_name_two(names):
@@ -107,7 +107,7 @@ def company_name_two(names):
         if len(i) < 2: 
             company_name = company_name + i + " "
         else: 
-            company_name = company_name + i[:1]
+            company_name = company_name + i[:1] + i[-1]
             
     return company_name
 
@@ -135,7 +135,7 @@ def new_slogan_concat(words, separator):
     for i in words: 
         cout = cout + i + separator
        
-    return cout 
+    return cout[:-1]
 
 # Question 5.2
 def new_slogan_join(words, separator):
@@ -234,8 +234,9 @@ def average_rating(ratings):
             sum += i 
         else: 
             sum += 0 
+    average = sum/len(ratings)
     
-    return round(sum/len(ratings), 2) 
+    return round(average, 2) 
     
 
 # Question 7.2
@@ -261,7 +262,7 @@ def average_rating_lists(ratings):
     -1
     """
     
-    
+    average = -1 
     for i, x in enumerate(ratings):
         sum = 0
         for j in ratings[i]:
@@ -269,7 +270,7 @@ def average_rating_lists(ratings):
                 sum += j
         if sum/len(ratings[i]) > average: 
             average = sum/len(ratings[i])
-    return average
+    return round(average, 2) 
 
 # Question 7.3
 def average_rating_lists_index(ratings):
@@ -295,7 +296,7 @@ def average_rating_lists_index(ratings):
     >>> average_rating_lists_index([])
     -1
     """
-    index = 0 
+    index = -1 
     average = 0 
     for i, x in enumerate(ratings):
         sum = 0
@@ -342,6 +343,8 @@ def average_rating_lists_names(ratings, names):
         if sum/len(ratings[i]) > average: 
             average = sum/len(ratings[i])
             index = i 
+    if index == -1: 
+        return ''
     return names[index]
     
 
@@ -371,22 +374,22 @@ def new_password(text, number, boolean):
     >>> new_password("paint", 21, True)
     'tniap42False'
     """
-    if text != type(str):
+    if not isinstance(text, str): 
         return "ERROR!"
-    elif number != type(int):
+    if not isinstance(number, int):
         return "ERROR!"
-    elif boolean != type(bool):
+    if not isinstance(boolean, bool): 
         return "ERROR!"
     
     
     cout = ''
     cout = cout + text[::-1]  
     if number % 2 == 0: 
-        number += 1
-        cout = cout + str(number) 
+        num = number + 1
+        cout = cout + str(num) 
     else: 
-        number * 2
-        cout = cout + str(number)
+        num = number * 2
+        cout = cout + str(num)
         
     if boolean == True: 
         cout = cout + "False"

@@ -7,9 +7,17 @@ PID: A18247795
 # Question 1
 def login(fname, lname):
     """
-    Creates a login by reversing the first name and the last name then taking
-    everyother value of the of the first name then concatinating every 3rd value
-    of the lname 
+    Creates a login by reversing the first name then taking
+    everyother value and then adding every 3rd value of the last name
+    of the lname
+    ---
+    Args: 
+        fname (str): The first name 
+        lname (str): The last name 
+
+    ---
+    Returns:
+        str: The new created name 
     
     >>> login("Marina", "Langlois")
     'aiaLgi'
@@ -20,23 +28,31 @@ def login(fname, lname):
 
     # Add your own doctests below
     >>> login("jaden", "a")
-    "ndjfa"
-    >>> login("joe,"joe")
-    "eje"
-    >>> login("","t")
-    "t" 
+    'ndja'
+    >>> login("joe", "joe")
+    'ejj'
+    >>> login("", "")
+    ''
+    
     """
     reversed_fname = fname[::-1]
-    reversed_lname = lname[::-1] 
     
-    return reversed_fname[0::2] + reversed_lname[0::3]
+    
+    return reversed_fname[0::2] + lname[0::3]
 
 
 # Question 2
 def ages(age1, age2):
-    """
-    This function will return the higher value of age1 and age2 
-    
+    """   
+    Finds the age that is closest to but less than 23 and returns it. If both ages are atleast 23 then returns "You both can rent!". 
+
+    ---
+    Args: 
+        age1 (int): The first age 
+        age2 (int): The second age
+    ---
+    Returns:
+        int: the age closer but not over 23, or str: "You both can rent!" 
     
     >>> ages(19, 21)
     21
@@ -46,26 +62,39 @@ def ages(age1, age2):
     'You both can rent!'
     >>> ages(19, 23)
     19
-
-    # Add your own doctests below
-    >>> ages(10, 1)
-    10 
+    >>> ages(11, 10)
+    11
     >>> ages(11, 12) 
-    12 
-    >>> ages(5, 3 ) 
-    5
+    12
+    >>> ages(15, 13) 
+    15
     """
-    if age1 > age2: 
-        return age1 
-    return age2
+    if age1 > 23 and age2 > 23: 
+        return "You both can rent!"
+    if age1 >= 23: 
+        return age2
+    if age2 >= 23:
+        return age1
+    
+    if 23 - age1 > 23 - age2: 
+        return age2
+    return age1
 
 
 # Question 3
 def renter(name1, name2, name3):
     """
-    This takes in the name of 3 renters and the return the person with the longest name. If there is multiple names
-    with the same lenght it will return the largest name number (ie. name3 is a larger name number than name2)
-
+    This takes in the name of 3 renters and the return the person with the longest name and the name that is furthest to the right 
+    
+    ---
+    Args: 
+        name1 (str): The first name 
+        name2 (str): The second name 
+        name3 (str): The third name
+    ---
+    Returns:
+        str: The longest largest integer name 
+        
     >>> renter("K", "BB", "Joy")
     'Joy'
     >>> renter("Joy", "K", "BB")
@@ -97,10 +126,15 @@ def renter(name1, name2, name3):
 # Question 4.1
 def helper_distance(lst, x2, y2):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Find the elcidean distance between 2 points 
+    ---
+    Parameters: 
+        lst (list): Contains 2 floating point numbers 
+        x2 (float): x-coordinate of the starting point 
+        y2 (float): y-coordinate of the starting point 
+    ---
+    Returns:
+        The elcidean distance 
     
     >>> helper_distance([0, 0], 3, 4)
     5.0
@@ -120,11 +154,16 @@ def helper_distance(lst, x2, y2):
 # Question 4.2
 def lunch(lunch_places, office_x, office_y, threshold):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Find the elcidean distance between 2 points 
+    ---
+    Parameters: 
+        lunch_places (list): Contains a list of 2 floating point numbers 
+        office_x (float): x-coordinate of the starting point 
+        office_y (float): y-coordinate of the starting point
+        threshold (float): maximun distance willing to travel 
+    ---
+    Returns:
+        lunch places that are less than or equal to the starting point 
     >>> lunch([[0, 0], [30.5, 20.7]], 3.2, 4, 6)
     [[0, 0]]
     >>> lunch([[-3, -4], [6, 7]], 3, 4, 10)
@@ -134,18 +173,31 @@ def lunch(lunch_places, office_x, office_y, threshold):
 
     # Add your own doctests below
     """
+    output_list = []
     
-    return
+    for lunch_place in lunch_places: 
+        if helper_distance(lunch_place,office_x, office_y) <= threshold: 
+            output_list.append(lunch_place)
+
+    
+    return output_list
 
 
 # Question 5
 def lunch_names(lunch_places, office_x, office_y, threshold, names):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Find lunch places that are close enough to the maximun walking threshold 
+    ---
+    Parameters: 
+        lunch_places (list): Contains a list of 2 floating point numbers 
+        office_x (float): x-coordinate of the starting point 
+        office_y (float): y-coordinate of the starting point
+        threshold (float): maximun distance willing to travel 
+        name (list): the name of the restaurant
+    ---
+    Returns:
+        names of lunch places that are less than or equal to the starting point 
+        
     >>> lunch_names([[0, 0], [30, 20], [5, 9]], 3.2, 4, 6, \
     ['place1', 'place2', 'place3'])
     ['place1', 'place3']
@@ -157,18 +209,31 @@ def lunch_names(lunch_places, office_x, office_y, threshold, names):
 
     # Add your own doctests below
     """
-    # YOUR CODE GOES HERE #
-    return
+    output_list = []
+    i = 0 
+    for lunch_place in lunch_places: 
+        if helper_distance(lunch_place,office_x, office_y) <= threshold: 
+            output_list.append(names[i]) 
+        i += 1 
+        
+    
+    return output_list
 
 
 # Question 6
 def meeting_message(i_name, time, place, s_name):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Takes the name of the invitee, time of day, place and the name of the message creator, as strings. It then returns an invitation, as a string.
+    ---
+    Parameters: 
+        i_name (str): The name of the invitee 
+        time (str): The time of the day
+        place (str): The location of the event
+        s_name (str): The name of the creator
+    ---
+    Returns:
+        The invitation message
+        
     >>> print(meeting_message("Penny", "3:15pm", "Cheesecake Factory", \
         "Sheldon"))
     Dear Penny,
@@ -184,18 +249,21 @@ def meeting_message(i_name, time, place, s_name):
 
     # Add your own doctests below
     """
-    # YOUR CODE GOES HERE #
-    return
-
-
+    print("Dear " + i_name + ",")
+    print("Please join our meeting at "+ time+ ", at the " + place + ".")
+    print()
+    print("See you soon: " + s_name) 
 # Question 7
 def seat_number(lst):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Assign each person in the list a place to sit. If two people have a name with the same lenght it will assign "taken". 
+    ---
+    Parameters: 
+        lst (list ): A list of all the names
+    ---
+    Returns:
+        list: all the seat assignments
+    
     >>> seat_number(["Marina", "Tom", "B"])
     [6, 3, 1]
     >>> seat_number(["Marina", "Sue", "Ben", "Freya"])
@@ -205,18 +273,28 @@ def seat_number(lst):
 
     # Add your own doctests below
     """
-    # YOUR CODE GOES HERE #
-    return
+    seat_list = []
+    for name in lst: 
+        if len(name) not in seat_list: 
+            seat_list.append(len(name))
+        else: 
+            seat_list.append("taken") 
+                
+    return seat_list
 
 
 # Question 8
 def computers(choices):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Creates a login by reversing the first name and the last name then taking
+    everyother value of the of the first name then concatinating every 3rd value
+    of the lname
+    ---
+    Parameters: 
+        l
+    ---
+    Returns:
+        T
     >>> computers(["DESKtop", "LAPtop", "DESKtop"])
     True
     >>> computers(["LAPtop", "LAPtop"])
@@ -233,11 +311,15 @@ def computers(choices):
 # Question 9
 def age_average(lst):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Creates a login by reversing the first name and the last name then taking
+    everyother value of the of the first name then concatinating every 3rd value
+    of the lname
+    ---
+    Parameters: 
+        l
+    ---
+    Returns:
+        T
     >>> age_average(["20", "21", "22"])
     '21.0'
     >>> age_average(["50", "25", "30"])
@@ -256,11 +338,15 @@ def age_average(lst):
 # Question 10
 def supervision_teams(team, company_name):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Creates a login by reversing the first name and the last name then taking
+    everyother value of the of the first name then concatinating every 3rd value
+    of the lname
+    ---
+    Parameters: 
+        l
+    ---
+    Returns:
+        T
     >>> supervision_teams(["p1", "p2", "p3"], "Marina")
     (['Marina', 'p1', 'p3'], ['p2', 'Marina'])
     >>> supervision_teams(["p1"], "Marina")

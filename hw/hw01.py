@@ -71,14 +71,15 @@ def ages(age1, age2):
     >>> ages(15, 13) 
     15
     """
-    if age1 > 23 and age2 > 23: 
+    target_number = 23
+    if age1 > target_number and age2 > target_number: 
         return "You both can rent!"
-    if age1 >= 23: 
+    if age1 >= target_number: 
         return age2
-    if age2 >= 23:
+    if age2 >= target_number:
         return age1
     
-    if 23 - age1 > 23 - age2: 
+    if target_number - age1 > target_number - age2: 
         return age2
     return age1
 

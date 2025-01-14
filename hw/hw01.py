@@ -62,6 +62,8 @@ def ages(age1, age2):
     'You both can rent!'
     >>> ages(19, 23)
     19
+    
+    # Add your own doctests below
     >>> ages(11, 10)
     11
     >>> ages(11, 12) 
@@ -144,6 +146,12 @@ def helper_distance(lst, x2, y2):
     0.5
 
     # Add your own doctests below
+    >>> helper_distance([0, 0], 0, 4)
+    4.0
+    >>> helper_distance([0, 0], 0, 0)
+    0.0
+    >>> helper_distance ([100, 100], 101, 100)
+    1.0
     """
     x1 = lst[0] 
     y1 = lst[1]

@@ -11,7 +11,7 @@ def login(fname, lname):
     everyother value and then adding every 3rd value of the last name
     of the lname
     ---
-    Args: 
+    Parameters: 
         fname (str): The first name 
         lname (str): The last name 
 
@@ -47,7 +47,7 @@ def ages(age1, age2):
     Finds the age that is closest to but less than 23 and returns it. If both ages are atleast 23 then returns "You both can rent!". 
 
     ---
-    Args: 
+    Parameters: 
         age1 (int): The first age 
         age2 (int): The second age
     ---
@@ -89,7 +89,7 @@ def renter(name1, name2, name3):
     This takes in the name of 3 renters and the return the person with the longest name and the name that is furthest to the right 
     
     ---
-    Args: 
+    Parameters: 
         name1 (str): The first name 
         name2 (str): The second name 
         name3 (str): The third name
@@ -180,6 +180,13 @@ def lunch(lunch_places, office_x, office_y, threshold):
     []
 
     # Add your own doctests below
+    >>> lunch([[0, 0], [30.5, 20.7]], 3.2, 4, 0.0001)
+    []
+    >>> lunch([[-3, -4], [6, 7]], 3, 4, 0.01)
+    []
+    >>> lunch ([[100, 100]], 100.5, 100, 200)
+    [[100, 100]]
+    
     """
     output_list = []
     
@@ -294,15 +301,14 @@ def seat_number(lst):
 # Question 8
 def computers(choices):
     """
-    Creates a login by reversing the first name and the last name then taking
-    everyother value of the of the first name then concatinating every 3rd value
-    of the lname
+    Counts if DESKtop is written in the list more times than LAPtop. 
     ---
     Parameters: 
-        l
+        choices (list): list of strings that contains times of computers in the office. 
     ---
     Returns:
-        T
+        Boolean: True if there is more DESKtops than LAPtops, False if not. 
+    
     >>> computers(["DESKtop", "LAPtop", "DESKtop"])
     True
     >>> computers(["LAPtop", "LAPtop"])
@@ -312,22 +318,29 @@ def computers(choices):
 
     # Add your own doctests below
     """
-    # YOUR CODE GOES HERE #
-    return
+    desktop_count = 0 
+    laptop_count = 0 
+    for choice in choices: 
+        if choice == "DESKtop": 
+            desktop_count += 1 
+        elif choice == "LAPtop":
+            laptop_count += 1 
+    if desktop_count > laptop_count: 
+        return True 
+    return False
 
 
 # Question 9
 def age_average(lst):
     """
-    Creates a login by reversing the first name and the last name then taking
-    everyother value of the of the first name then concatinating every 3rd value
-    of the lname
+    Calculates the average age of a friend group. Some people do not want there ages to be included so they will not be counted 
     ---
     Parameters: 
-        l
+        lst (list): list of ages 
     ---
     Returns:
-        T
+        float: The average of the ages
+        
     >>> age_average(["20", "21", "22"])
     '21.0'
     >>> age_average(["50", "25", "30"])
@@ -338,23 +351,39 @@ def age_average(lst):
     '0.0'
 
     # Add your own doctests below
+    
+    >>> age_average(["50", "-23", "30"])
+    '40.0'
+    >>> age_average(["40", "-999", "-999"])
+    '40.0'
+    >>> age_average([0.0])
+    '0.0'
+    
+    
     """
-    # YOUR CODE GOES HERE #
-    return
+    valid_counts = 0 
+    total = 0
+    for number in lst: 
+        if int(number) > 0: 
+            total += int(number)
+            valid_counts += 1 
+    if valid_counts > 0: 
+        return str(total/valid_counts)
+    return '0.0'
 
 
 # Question 10
 def supervision_teams(team, company_name):
     """
-    Creates a login by reversing the first name and the last name then taking
-    everyother value of the of the first name then concatinating every 3rd value
-    of the lname
+    Divides a list of participants into two teams based on the position in the index. Team 1 is made up of even number and team 2 is made up of odd numbers. 
     ---
     Parameters: 
-        l
+        team (list): A list of participants 
+        company_name (str): The name of the painting company
     ---
     Returns:
-        T
+        tuple: The first time  including the company name as the first element and all participants from even indices and the second team including the company name as the last element and all participants from odd indices.
+        
     >>> supervision_teams(["p1", "p2", "p3"], "Marina")
     (['Marina', 'p1', 'p3'], ['p2', 'Marina'])
     >>> supervision_teams(["p1"], "Marina")
@@ -363,7 +392,23 @@ def supervision_teams(team, company_name):
     (['Marina', 'p1', 'p3', 'p5'], ['p2', 'p4', 'p6', 'Marina'])
 
     # Add your own doctests below
+    >>> supervision_teams(["p1", "p2", "p3"], "jaden")
+    (['jaden', 'p1', 'p3'], ['p2', 'jaden'])
+    >>> supervision_teams(["p1"], "jaden")
+    (['jaden', 'p1'], ['jaden'])
+    >>> supervision_teams(["p1", "p2", "p3", "p4", "p5", "p6"], "jaden")
+    (['jaden', 'p1', 'p3', 'p5'], ['p2', 'p4', 'p6', 'jaden'])
     """
-    # YOUR CODE GOES HERE #
-    return
+    
+    team1 = [company_name]
+    team2 = []
+    i = 0 
+    for j in team:
+        if i % 2 == 0: 
+            team1.append(j)
+        else: 
+            team2.append(j)
+        i += 1 
+    team2.append(company_name)
+    return (team1, team2)
     

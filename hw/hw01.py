@@ -249,10 +249,10 @@ def meeting_message(i_name, time, place, s_name):
 
     # Add your own doctests below
     """
-    print("Dear " + i_name + ",")
-    print("Please join our meeting at "+ time+ ", at the " + place + ".")
-    print()
-    print("See you soon: " + s_name) 
+    message = f"Dear {i_name},\nPlease join our meeting at {time}, at the {place}.\n\nSee you soon: {s_name}"
+    return message 
+
+
 # Question 7
 def seat_number(lst):
     """

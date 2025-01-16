@@ -1,7 +1,7 @@
 """
 DSC 20 Winter 2025 Lab 02
-Name: TODO
-PID: TODO
+Name: Jaden Goelkel
+PID: A18247795
 """
 
 # Question 1
@@ -26,8 +26,14 @@ def name_plates(names):
     >>> name_plates(names)
     ['new name is needed', 'new name is needed']
     """
-    # YOUR CODE GOES HERE #
-    return
+    new_name_list = [] 
+    for name in names: 
+        if len(name) < 3: 
+            new_name_list.append("new name is needed")
+        else: 
+            new_name_list.append(name[1:-1])
+            
+    return new_name_list 
 
 
 # Question 2
@@ -56,8 +62,13 @@ def checking_length(names):
     >>> checking_length(names)
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    new_list = []
+    for i in range(len(names)):
+        if len(names[i][0]) < (names[i][1]+ names[i][1]):
+            new_list.append(('too short', 0))
+        else: 
+            new_list.append((names[i][0], names[i][1]))
+    return new_list
 
 
 # Question 3
@@ -82,8 +93,16 @@ def remove_characters(names, threshold):
     >>> remove_characters(names, 5) 
     [['too short', 'too short', 'too short'], ['too short', 'too short']]
     """
-    # YOUR CODE GOES HERE #
-    return
+    new_list = []
+    for i in range(len(names)):
+        temp_list = []
+        for j in range(len(names[i])): 
+            if len(names[i][j]) < (threshold + threshold):
+                temp_list.append('too short')
+            else: 
+                temp_list.append((names[i][j][threshold:-threshold]))
+        new_list.append(temp_list)
+    return new_list
 
 
 # Question 4

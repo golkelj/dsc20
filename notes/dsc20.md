@@ -1,17 +1,45 @@
 # dsc20 notes
+
+## Errors 
+- Syntax Error 
+- semantic Error 
+- Exceptions  
+    - NameError 
+    - IndexError 
+    - KeyError 
+    - ValueError = correct type but doesnt fit parameter 
+    - TypeError = wrong type
+    - ImportError 
+    - AttributionError
+    - ZeroDivisionError   
+
+
 ### Slicing 
 [start:stop:step]
 
-## Data types  
+## Data types 
+
+### String 
+
+``` string.find("", start, stop ) ```
+
+- returns the index of the given letter or -1 if it is not found 
+
+``` in ```
+
+- This boolen operator finds if a string is in a string   
+
 ### List
 - Slicable
 - Mutable 
 
 ```list.append() ``` 
 - Adds single item to the list (can be different types)
+- modifies and returns none
 
 ``` .list() ```
-- Turns items into a list 
+- Turns items into a list
+- Index values must be integers 
 
 
 ```list.extend()```
@@ -21,6 +49,16 @@
 ### Tuple 
 - Slicable  
 - Immutable
+
+
+#### Tuple assigment 
+
+``` a, b = b, a ```
+
+- numbers on both sides need to be the same lenght  
+- The right side of expression is unpacked before any of the assignment
+
+- To specify a tuple with only one element in an assignment statement, simply follow the element with a comma
 
 ### String
 - Slicable
@@ -46,6 +84,19 @@
 ``` dict.keys() ```
 
 - returns the keys (Note it does not return a list; If you want to use the values into a list by casting)
+
+``` dict[] = __ ```   
+- Adds a key value pair to a dictionary
+
+- The order on the computer might not be the same** 
+
+``` dict[key] ```
+- returns the value at the key or it returns KeyError
+
+``` in ``` works for dicts and will return bool is the key is present 
+
+#### - Can be used as a counter 
+
 
 
 

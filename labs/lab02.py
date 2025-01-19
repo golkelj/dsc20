@@ -26,14 +26,13 @@ def name_plates(names):
     >>> name_plates(names)
     ['new name is needed', 'new name is needed']
     """
-    new_name_list = [] 
-    for name in names: 
-        if len(name) < 3: 
+    new_name_list = []
+    for name in names:
+        if len(name) < 3:
             new_name_list.append("new name is needed")
-        else: 
+        else:
             new_name_list.append(name[1:-1])
-            
-    return new_name_list 
+    return new_name_list
 
 
 # Question 2
@@ -66,7 +65,7 @@ def checking_length(names):
     for i in range(len(names)):
         if len(names[i][0]) < (names[i][1]+ names[i][1]):
             new_list.append(('too short', 0))
-        else: 
+        else:
             new_list.append((names[i][0], names[i][1]))
     return new_list
 
@@ -93,16 +92,13 @@ def remove_characters(names, threshold):
     >>> remove_characters(names, 5) 
     [['too short', 'too short', 'too short'], ['too short', 'too short']]
     """
-    new_list = []
     for i in range(len(names)):
-        temp_list = []
-        for j in range(len(names[i])): 
-            if len(names[i][j]) < (threshold + threshold):
-                temp_list.append('too short')
-            else: 
-                temp_list.append((names[i][j][threshold:-threshold]))
-        new_list.append(temp_list)
-    return new_list
+        for j in range(len(names[i])):
+            if len(names[i][j]) >= threshold + threshold:
+                names[i][j] = names[i][j][threshold:-threshold]
+            else:
+                names[i][j] = 'too short'
+    return names  
 
 
 # Question 4
@@ -131,8 +127,14 @@ def time_for_food(choices):
     >>> time_for_food(choices)
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    output_list = []
+    i = 0
+    while choices[i][1] == "M" or choices[i][1] == "A":
+        output_list.append(choices[i][0].upper())
+        i += 1
+        if i > len(choices)-1:
+            break
+    return output_list
 
 
 # Question 5
@@ -162,8 +164,13 @@ def morning_people(input_string, last_character):
     >>> morning_people(input_string, '!')
     1
     """
-    # YOUR CODE GOES HERE #
-    return
+    count = 0
+    split_list = input_string.split(" ")
+    for word in split_list:
+        if word[-2].isalpha():
+            if word[-1] == last_character:
+                count += 1
+    return count
 
 
 # Question 6.1
@@ -189,8 +196,7 @@ def question_1(dishes):
     >>> question_1(recipe3)
     3
     """
-    # YOUR CODE GOES HERE #
-    return
+    return len(dishes.keys())
 
 
 # Question 6.2
@@ -217,7 +223,7 @@ def question_2(dishes):
     ['Salad', 'Hotpot', 'Burger']
     """
     # YOUR CODE GOES HERE #
-    return
+    return list(dishes.keys())
 
 
 # Question 6.3
@@ -244,9 +250,18 @@ def question_3(dishes):
     >>> question_3(recipe3)
     0
     """
-    # YOUR CODE GOES HERE #
-    return
-
+    
+    ingredients_list = list(dishes.keys())
+    if not dishes:
+        return 0
+    shortest = 2 * 10
+    
+    for item in ingredients_list:
+        if len(dishes[item]) <= shortest:
+            shortest = len(dishes[item])
+            
+            
+    return shortest 
 
 # Question 6.4
 def question_4(dishes):
@@ -271,8 +286,14 @@ def question_4(dishes):
     >>> question_4(recipe3)
     'Burger'
     """
-    # YOUR CODE GOES HERE #
-    return
+    longest = ''
+    lenght = 0
+    dish_keys = list(dishes.keys())
+    for dish in dish_keys:
+        if len(dishes[dish]) >= lenght:
+            lenght = len(dishes[dish])
+            longest = dish
+    return longest
 
 
 # Question 6.5
@@ -298,8 +319,10 @@ def question_5(dishes, new_dish):
     >>> question_5(recipe2, 'Salad')
     {'Omelet': ['Eggs', 'Milk', 'Salt', 'Butter'], 'Salad': []}
     """
-    # YOUR CODE GOES HERE #
-    return
+    if new_dish in dishes:
+        return dishes
+    dishes[new_dish] = []
+    return dishes
 
 
 # Question 6.6
@@ -327,8 +350,13 @@ def question_6(dishes, new_dish, ingredient):
     >>> question_6(recipe3, 'Salad', 'tomato')
     {'Salad': ['tomato', 'tomato']}
     """
-    # YOUR CODE GOES HERE #
-    return
+    if new_dish in dishes:
+        current = list(dishes[new_dish])
+        current.append(str(ingredient))
+        dishes[new_dish] = current
+    else:
+        dishes[new_dish] = [ingredient]
+    return dishes
 
 # Question 6.7
 def question_7(dishes, ingredient):
@@ -353,8 +381,11 @@ def question_7(dishes, ingredient):
     >>> question_7(recipe3, 'tomato')
     {'Salad': ['spinach'], 'Burger': []}
     '''
-    # YOUR CODE GOES HERE #
-    return
+    for dish in dishes:
+        if ingredient in dishes[dish]:
+            dishes[dish].remove(ingredient)
+            
+    return dishes 
 
 # Question 7
 def password_to_lounge(names_dict):
@@ -381,5 +412,13 @@ def password_to_lounge(names_dict):
     >>> password_to_lounge(dict3)
     '####02CSD'
     """
-    # YOUR CODE GOES HERE #
-    return
+    output_string = ''
+    for name in names_dict:
+        if isinstance(names_dict[name], str):
+            if len(names_dict[name]) % 2 == 0:
+                output_string += name[::-1]
+        elif isinstance(names_dict[name], int) and names_dict[name] >= 0:
+            output_string += ("#" * len(name))
+        elif isinstance(names_dict[name], int) and names_dict[name] < 0:
+            output_string += "W"
+    return output_string

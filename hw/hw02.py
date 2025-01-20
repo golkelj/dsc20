@@ -8,12 +8,17 @@ Source: NA
 # Question 1
 def name_mapping(given_names, preferred_names):
     """
-    description
+    Takes two lists and then adds a tuple to a list that contains the given \
+    name and the preferred name. If no given name is given then "NO NAME \
+    PROVIDED" is added. 
     --
     Parameters:
+        given_name (list): List of the given names
+        preferred_names (list): List of the preferred names
         
     --
     Returns:
+        list: List of the tuples of the given names and the preferred names \
        
 
     >>> given_names = ['Amanda', 'Jeffrey', 'Richard']
@@ -33,18 +38,46 @@ def name_mapping(given_names, preferred_names):
 ('NO NAME PROVIDED', 'Rick')]
 
     # Add at least 3 doctests below here #
+    >>> given_names = [] 
+    >>> preferred_names = []
+    >>> name_mapping(given_names, preferred_names)
+    []
+    >>> given_names = ['jaden']
+    >>> preferred_names = ['Jaden']
+    >>> name_mapping(given_names, preferred_names)
+    [('jaden', 'Jaden')]
+    >>> given_names = []
+    >>> preferred_names = ['Jaden']
+    >>> name_mapping(given_names, preferred_names)
+    [('NO NAME PROVIDED', 'Jaden')]
+    
     """
-    # YOUR CODE GOES HERE #
-    return
-
+    output = []
+    if given_names == None:
+        return []
+    i = 0
+    for name in preferred_names:
+        if i > len(given_names)-1:
+            output.append(("NO NAME PROVIDED", name))
+        else: output.append((given_names[i], name))
+        i += 1
+        
+    return output
 
 # Question 2
 def valid_pairs(keys, values):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Creates dictionary key-values pair if the inputs are valid, if not \
+    if not it will create a tuple with the string 'not valid' 
+    --
+    Parameters:
+        keys (list): A list of a variety of data types
+        values (list): A list of a variety of data types
+        
+    --
+    Returns:
+        list: list of tuples with the key-value pairs
+    
 
     >>> keys = ["fun", ["not so much"]]
     >>> values = [("learning",), 6]
@@ -62,18 +95,46 @@ def valid_pairs(keys, values):
     []
 
     # Add at least 3 doctests below here #
+    >>> keys =['j']
+    >>> values =['a']
+    >>> valid_pairs(keys, values)
+    [('j', 'a')]
+    >>> keys =['ja']
+    >>> values =['de']
+    >>> valid_pairs(keys, values)
+    [('ja', 'de')]
+    >>> keys =['jaden']
+    >>> values =['goelkel']
+    >>> valid_pairs(keys, values)
+    [('jaden', 'goelkel')]
     """
-    # YOUR CODE GOES HERE #
-    return
+    i = 0
+    dict_list = []
+    for key in keys:
+        if isinstance(key, (str, int, tuple, float)):
+            dict_list.append((key, values[i]))
+        else: dict_list.append(("not valid",))
+        i += 1
+
+    return dict_list
 
 
 # Question 3
 def dict_of_names(name_tuples):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Convert a list of the given names and the preferred names to tuples then \
+    to a dictionary where keys are given names and values are lists of \
+    preferred names.
+    --
+    Parameters:
+    data (list of tuples): A list of the given name and preferred name \
+    tuples.
+
+    --
+    Returns:
+    dict: A dictionary where keys are given names and values are lists of \
+    preferred names.
+    
 
     >>> dict_of_names([('Richard', 'Rick'),
     ... ('Roxanne', 'Rose'), ('Roxanne', 'Ann'),
@@ -92,20 +153,40 @@ def dict_of_names(name_tuples):
     {'NO NAME PROVIDED': ['Derrick', 'Jacob']}
 
     # Add at least 3 doctests below here #
+    >>> dict_of_names([("j", "jadn")])
+    {'j': ['jadn']}
+
+    >>> dict_of_names([("ja", "jaden"), ("j", "jaden")])
+    {'ja': ['jaden'], 'j': ['jaden']}
+
+    >>> dict_of_names([("jad", "jaden")])
+    {'jad': ['jaden']}
     """
-    # YOUR CODE GOES HERE #
-    return
+    name_dict = {}
+    for name in name_tuples:
+        if name[0] in name_dict:
+            name_dict[name[0]].append(name[1])
+        else:
+            name_dict[name[0]] = [name[1]]
+        
+    return name_dict
 
 
 # Question 4.1
 def contractor_payment(suggestions):
     """
-     description
+    Calculates the average payment for the contractors based on the provided \
+    list of suggestions.
     --
     Parameters:
-        
+    payments (list): A list of lists, where each inner list contains payment\
+    suggestions for the three contractors.
+
     --
     Returns:
+    dict: A dictionary with the contractor labels ('1', '2', '3'),\
+    and the values are the average payments for each contractor.
+    
        
     >>> contractor_payment([[10, 20, 30], [0, 20, 10]])
     {'1': 5.0, '2': 20.0, '3': 20.0}
@@ -117,9 +198,26 @@ def contractor_payment(suggestions):
     {'1': -12.5, '2': 2.5, '3': 18.0}
 
     # Add at least 3 doctests below here #
+    >>> contractor_payment([[1, 2, 3], [0, 2, 1]])
+    {'1': 0.5, '2': 2.0, '3': 2.0}
+
+    >>> contractor_payment([[100, 200, 300], [300, 200, 100], [50, 100, 150]])
+    {'1': 150, '2': 166.7, '3': 183.3}
+
+    >>> contractor_payment([[0, 0, 0], [0, 0, 0]])
+    {'1': 0.0, '2': 0.0, '3': 0.0}
     """
-    # YOUR CODE GOES HERE #
-    return
+    contr_1, contr_2, contr_3 = 0.0, 0.0, 0.0 
+    suggestions_dict = {}
+    for payment in suggestions:
+        contr_1, contr_2, contr_3 = contr_1 + payment[0], \
+            contr_2 + payment[1], contr_3 + payment[2]
+        
+    suggestions_dict['1'] = contr_1/ len(suggestions)
+    suggestions_dict['2'] = contr_2/ len(suggestions)
+    suggestions_dict['3'] = contr_3/ len(suggestions)
+    
+    return suggestions_dict
 
 # Question 4.2
 def new_pay(hours):
@@ -290,10 +388,10 @@ def case_letters(filepath):
     19
 
     # Add at least 3 doctests below here #
-    >>> case_letters('files/Another_test.txt')
+    >>> case_letters('files/nother_test.txt')
     >>> with open('files/another_test.txt', 'r') as outfile3:
     ...    print(outfile3.read().strip())
-    1
+    0
     18
     >>> case_letters('files/JAden.txt')
     >>> with open('files/another_test.txt', 'r') as outfile4:
@@ -307,9 +405,11 @@ def case_letters(filepath):
     6
     """
     file_name = filepath.split("/")[-1].split(".")[0]
+    uppercase_count = len([i for i in file_name if i.isupper()])  # Count uppercase letters
+    lowercase_count = len(file_name) - uppercase_count   
     with open(filepath, "w") as writer:
-        writer.writelines([len(i) for i in file_name if i.isupper()])
-        writer.writelines(len(file_name) - [len(i) for i in file_name if i.isupper()])
+        writer.writelines(str(uppercase_count) + "\n")
+        writer.writelines(str(lowercase_count) + "\n")
         
     
     return 

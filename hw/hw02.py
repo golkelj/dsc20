@@ -1,17 +1,20 @@
 """
 DSC 20 Winter 2024 Homework 02
-Name: TODO
-PID: TODO
-Source: TODO
+Name: Jaden Goelkel
+PID: A18247795
+Source: NA
 """
 
 # Question 1
 def name_mapping(given_names, preferred_names):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    description
+    --
+    Parameters:
+        
+    --
+    Returns:
+       
 
     >>> given_names = ['Amanda', 'Jeffrey', 'Richard']
     >>> preferred_names = ['Mandy', 'Jeff', 'Rick']
@@ -97,11 +100,13 @@ def dict_of_names(name_tuples):
 # Question 4.1
 def contractor_payment(suggestions):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+     description
+    --
+    Parameters:
+        
+    --
+    Returns:
+       
     >>> contractor_payment([[10, 20, 30], [0, 20, 10]])
     {'1': 5.0, '2': 20.0, '3': 20.0}
 
@@ -119,11 +124,13 @@ def contractor_payment(suggestions):
 # Question 4.2
 def new_pay(hours):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    description
+    --
+    Parameters:
+        
+    --
+    Returns:
+       
     >>> case1 = {'1': 200, '2': 138, '3': 172}
     >>> round(new_pay(case1), 2)
     0.51
@@ -150,11 +157,13 @@ def new_pay(hours):
 # Question 5
 def potential_ideas_for_business(items):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+     description
+    --
+    Parameters:
+        
+    --
+    Returns:
+       
     >>> items = {'supplier 1': ['Tea', 'Peaches'], \
     'supplier 2': ['Peaches', 'Apples', 'Cups']}
     >>> potential_ideas_for_business(items)
@@ -176,11 +185,13 @@ def potential_ideas_for_business(items):
 # Question 6.1
 def count_lines_1(filepath):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+     description
+    --
+    Parameters:
+        
+    --
+    Returns:
+       
     >>> count_lines_1('files/test1.txt')
     6
     >>> count_lines_1('files/test2.txt')
@@ -195,11 +206,13 @@ def count_lines_1(filepath):
 # Question 6.2
 def count_lines_2(filepath):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+     description
+    --
+    Parameters:
+        
+    --
+    Returns:
+       
     >>> count_lines_2('files/test1.txt')
     6
     >>> count_lines_2('files/test2.txt')
@@ -214,11 +227,13 @@ def count_lines_2(filepath):
 # Question 6.3
 def count_lines_3(filepath):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    description
+    --
+    Parameters:
+        
+    --
+    Returns:
+       
     >>> count_lines_3('files/test1.txt')
     6
     >>> count_lines_3('files/test2.txt')
@@ -233,11 +248,13 @@ def count_lines_3(filepath):
 # Question 7
 def collected_items(filepath):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    description
+    --
+    Parameters:
+        
+    --
+    Returns:
+       
     >>> collected_items('files/ings1.txt')
     ['ice-cream', 'boba tea', 'fish']
     >>> collected_items('files/ings2.txt')
@@ -254,11 +271,13 @@ def collected_items(filepath):
 # Question 8
 def case_letters(filepath):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    description
+    --
+    Parameters:
+        
+    --
+    Returns:
+       
     >>> case_letters('files/AlErNaTiNg.txt')
     >>> with open('files/AlErNaTiNg.txt', 'r') as outfile1:
     ...    print(outfile1.read().strip())
@@ -271,19 +290,41 @@ def case_letters(filepath):
     19
 
     # Add at least 3 doctests below here #
+    >>> case_letters('files/Another_test.txt')
+    >>> with open('files/another_test.txt', 'r') as outfile3:
+    ...    print(outfile3.read().strip())
+    1
+    18
+    >>> case_letters('files/JAden.txt')
+    >>> with open('files/another_test.txt', 'r') as outfile4:
+    ...    print(outfile4.read().strip())
+    2
+    3
+    >>> case_letters('files/poopoo.txt')
+    >>> with open('files/another_test.txt', 'r') as outfile5:
+    ...    print(outfile5.read().strip())
+    0
+    6
     """
-    # YOUR CODE GOES HERE #
-    return
+    file_name = filepath.split("/")[-1].split(".")[0]
+    with open(filepath, "w") as writer:
+        writer.writelines([len(i) for i in file_name if i.isupper()])
+        writer.writelines(len(file_name) - [len(i) for i in file_name if i.isupper()])
+        
+    
+    return 
 
 
 # Question 9
 def map_office(filepath):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    description
+    --
+    Parameters:
+        
+    --
+    Returns:
+       
     >>> map_office('files/offices1.txt')
     259
     >>> with open('files/floors.txt', 'r') as f:

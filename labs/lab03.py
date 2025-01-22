@@ -1,7 +1,7 @@
 """
 DSC 20 Winter 2025 Lab 03
-Name: TODO
-PID: TODO
+Name: Jaden Goelkel
+PID: A18247795
 """
 
 # Problem 1.1

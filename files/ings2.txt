@@ -1,0 +1,4 @@
+marina,vons,shovel,3
+nicole,happy lemon,headphones,30
+charisse,petsmart,bird,2
+jaden,costco,brownies,0618

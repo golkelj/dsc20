@@ -222,12 +222,18 @@ def contractor_payment(suggestions):
 # Question 4.2
 def new_pay(hours):
     """
-    description
+    Calculates the new pay for the contractors according to the following \
+    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
+    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
+    hours worked by contractor 3) - 5
     --
     Parameters:
+        hours (dict): Dictionary containing the hours that each of the \
+        contractors worked. 
         
     --
     Returns:
+        float: The calculated bonus pay
        
     >>> case1 = {'1': 200, '2': 138, '3': 172}
     >>> round(new_pay(case1), 2)
@@ -248,19 +254,57 @@ def new_pay(hours):
     {'1': 42, '2': 96, '3': 63, 'pay': 'Penalty'}
 
     # Add at least 3 doctests below here #
+    >>> case4 = {'1': 0, '2': 0, '3': 0}
+    >>> round(new_pay(case4), 2)
+    -5.0
+    >>> case4
+    {'1': 0, '2': 0, '3': 0, 'pay': 'Penalty'}
+    
+    >>> case5 = {'1': 1, '2': 1, '3': 1}
+    >>> round(new_pay(case5), 2)
+    -4.95
+    >>> case5
+    {'1': 1, '2': 1, '3': 1, 'pay': 'Penalty'}
+    
+    >>> case6 = {'1': 100, '2': 100, '3': 100}
+    >>> round(new_pay(case6), 2)
+    -2.5
+    >>> case6
+    {'1': 100, '2': 100, '3': 100, 'pay': 'Penalty'}
+    
     """
-    # YOUR CODE GOES HERE #
-    return
+    
+    bonus_pay = ((hours['1'] * 0.01) + (hours['2'] * 0.015) + 
+                 min((0.02 * abs(100 - hours['3'])), 0.025 
+                 * hours['3']) - 5 ) 
+    
+    if bonus_pay > 0:
+        hours['pay'] = 'Bonus'
+    elif bonus_pay == 0: 
+        hours['pay'] = '0'
+    elif bonus_pay < 0 :
+        hours['pay'] = 'Penalty'
+        if hours['1'] < 0 or hours['3'] < 0 or hours['3'] < 0: 
+            bonus_pay = -10
+        
+    
+    return bonus_pay
 
 # Question 5
 def potential_ideas_for_business(items):
     """
-     description
+    Takes in a dictionary with a keys of the suppliers and items as  \
+    the values and combined all the unique list with all the values \
+    sorted alphabetically 
+    
     --
     Parameters:
+        items (dict): a dictionary with keys--suppliers-- and \
+        lists as the values
         
     --
     Returns:
+        list: list of the combined values sorted alphabetically
        
     >>> items = {'supplier 1': ['Tea', 'Peaches'], \
     'supplier 2': ['Peaches', 'Apples', 'Cups']}
@@ -277,18 +321,28 @@ def potential_ideas_for_business(items):
     >>> potential_ideas_for_business(items)
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    new_list = []
+    for supplier in items.keys(): 
+        for item in items[supplier]: 
+            if item not in new_list:
+                new_list.append(item)
+    new_list.sort() 
+        
+    return new_list
+
 
 # Question 6.1
 def count_lines_1(filepath):
     """
-     description
+    Counts the number of lines that are preseent in a given \
+    text file. 
     --
     Parameters:
+        filepath (string): the path to the text file
         
     --
     Returns:
+        int: the number of lines in the file
        
     >>> count_lines_1('files/test1.txt')
     6
@@ -296,20 +350,34 @@ def count_lines_1(filepath):
     24
 
     # Add at least 3 doctests below here #
+    >>> count_lines_1('files/test3.txt')
+    4
+    >>> count_lines_1('files/test4.txt')
+    9
+    >>> count_lines_1('files/test5.txt')
+    3
+    
     """
-    # YOUR CODE GOES HERE #
-    return
+    line_list = []
+    with open(filepath, 'r') as reader: 
+        for line in reader:
+            line_list.append(line) 
+             
+    return len(line_list)
 
 
 # Question 6.2
 def count_lines_2(filepath):
     """
-     description
+    Counts the number of lines that are preseent in a given \
+    text file. 
     --
     Parameters:
+        filepath (string): the path to the text file
         
     --
     Returns:
+        int: the number of lines in the file
        
     >>> count_lines_2('files/test1.txt')
     6
@@ -317,20 +385,31 @@ def count_lines_2(filepath):
     24
 
     # Add at least 3 doctests below here #
+    >>> count_lines_1('files/test3.txt')
+    4
+    >>> count_lines_1('files/test4.txt')
+    9
+    >>> count_lines_1('files/test5.txt')
+    3
     """
-    # YOUR CODE GOES HERE #
-    return
+    with open(filepath, 'r') as reader: 
+        doc = reader.read().split("\n")
+    return len(doc)
+    
 
 
 # Question 6.3
 def count_lines_3(filepath):
     """
-    description
+    Counts the number of lines that are preseent in a given \
+    text file. 
     --
     Parameters:
+        filepath (string): the path to the text file
         
     --
     Returns:
+        int: the number of lines in the file
        
     >>> count_lines_3('files/test1.txt')
     6
@@ -338,9 +417,16 @@ def count_lines_3(filepath):
     24
 
     # Add at least 3 doctests below here #
+    >>> count_lines_1('files/test3.txt')
+    4
+    >>> count_lines_1('files/test4.txt')
+    9
+    >>> count_lines_1('files/test5.txt')
+    3
     """
-    # YOUR CODE GOES HERE #
-    return
+    with open(filepath, 'r') as reader: 
+        return len(reader.readlines())
+    
 
 
 # Question 7
@@ -361,20 +447,38 @@ def collected_items(filepath):
     []
 
     # Add at least 3 doctests below here #
+    >>> collected_items('files/ings3.txt')
+    ['corn']
+    >>> collected_items('files/ings4.txt')
+    ['cookies']
+    >>> collected_items('files/ings5.txt')
+    ['shoes']
+   
+    
     """
-    # YOUR CODE GOES HERE #
-    return
+    index_of_3rd_item = 2 
+    collected_items_list = []
+    with open(filepath, 'r') as reader: 
+        for line in reader: 
+            collected_items_list.append(
+                line.split(',')[index_of_3rd_item]) 
+    return collected_items_list
 
 
 # Question 8
 def case_letters(filepath):
     """
-    description
+    Counts the number of uppercase and lower case letters in the file path \
+    then writes on a the file the uppercase letter count on one line the \
+    the lowercase letter count on the next line. 
     --
     Parameters:
+        filepath (string): The path to the .txt file 
         
     --
     Returns:
+        none: modifies the filepath file for the uppercase and lowercase \
+        letter counts
        
     >>> case_letters('files/AlErNaTiNg.txt')
     >>> with open('files/AlErNaTiNg.txt', 'r') as outfile1:
@@ -389,24 +493,29 @@ def case_letters(filepath):
 
     # Add at least 3 doctests below here #
     >>> case_letters('files/nother_test.txt')
-    >>> with open('files/another_test.txt', 'r') as outfile3:
+    >>> with open('files/nother_test.txt', 'r') as outfile3:
     ...    print(outfile3.read().strip())
     0
     18
     >>> case_letters('files/JAden.txt')
-    >>> with open('files/another_test.txt', 'r') as outfile4:
+    >>> with open('files/JAden.txt', 'r') as outfile4:
     ...    print(outfile4.read().strip())
     2
-    3
+    11
     >>> case_letters('files/poopoo.txt')
-    >>> with open('files/another_test.txt', 'r') as outfile5:
+    >>> with open('files/poopoo.txt', 'r') as outfile5:
     ...    print(outfile5.read().strip())
     0
-    6
+    14
     """
-    file_name = filepath.split("/")[-1].split(".")[0]
-    uppercase_count = len([i for i in file_name if i.isupper()])  # Count uppercase letters
-    lowercase_count = len(file_name) - uppercase_count   
+    uppercase_count = 0 
+    lowercase_count = 0 
+    file_name = filepath
+    for char in file_name:
+        if char.isupper(): 
+            uppercase_count += 1 
+        elif char.islower(): 
+            lowercase_count += 1 
     with open(filepath, "w") as writer:
         writer.writelines(str(uppercase_count) + "\n")
         writer.writelines(str(lowercase_count) + "\n")
@@ -418,12 +527,17 @@ def case_letters(filepath):
 # Question 9
 def map_office(filepath):
     """
-    description
+    Takes in a text file with an int floor numbers on each of the lines  \
+    and then maps each number to a floor number then adds up all of the \
+    floor number to be returned. Any negative numbers are not valid.
     --
     Parameters:
+        filepath (string): The path to the text file with all the floors \
+        containing n floors with n > 0
         
     --
     Returns:
+        int: The sum of all the valid numbers 
        
     >>> map_office('files/offices1.txt')
     259
@@ -442,8 +556,31 @@ def map_office(filepath):
     second floor
     ground floor
     """
-    # YOUR CODE GOES HERE #
-    return
-
+    floor_sum = 0 
+    floor_name = [] 
+    with open(filepath, 'r') as reader: 
+        for line in reader: 
+            line = int(line)
+            if line >= 300:
+                floor_name.append("third floor and above") 
+                floor_sum += line 
+            elif 200 <= line <= 299: 
+                floor_name.append("second floor")
+                floor_sum += line 
+            elif 0 < line <= 199: 
+                floor_name.append("ground floor")
+                floor_sum += line 
+            else: 
+                floor_name.append("not a valid office number")
+            
+                
+                
+                
+    with open("files/floors.txt", 'w') as writer:
+        for line in floor_name: 
+            writer.write(line + "\n")
+                
+    return floor_sum
+ 
 
 

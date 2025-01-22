@@ -2,7 +2,7 @@
 DSC 20 Winter 2024 Homework 02
 Name: Jaden Goelkel
 PID: A18247795
-Source: NA
+Source: Lecture readings
 """
 
 # Question 1
@@ -53,7 +53,7 @@ def name_mapping(given_names, preferred_names):
     
     """
     output = []
-    if given_names == None:
+    if given_names is None:
         return []
     i = 0
     for name in preferred_names:
@@ -61,7 +61,6 @@ def name_mapping(given_names, preferred_names):
             output.append(("NO NAME PROVIDED", name))
         else: output.append((given_names[i], name))
         i += 1
-        
     return output
 
 # Question 2
@@ -115,7 +114,6 @@ def valid_pairs(keys, values):
             dict_list.append((key, values[i]))
         else: dict_list.append(("not valid",))
         i += 1
-
     return dict_list
 
 
@@ -168,7 +166,6 @@ def dict_of_names(name_tuples):
             name_dict[name[0]].append(name[1])
         else:
             name_dict[name[0]] = [name[1]]
-        
     return name_dict
 
 
@@ -202,21 +199,22 @@ def contractor_payment(suggestions):
     {'1': 0.5, '2': 2.0, '3': 2.0}
 
     >>> contractor_payment([[100, 200, 300], [300, 200, 100], [50, 100, 150]])
-    {'1': 150, '2': 166.7, '3': 183.3}
+    {'1': 150.0, '2': 166.67, '3': 183.33}
 
     >>> contractor_payment([[0, 0, 0], [0, 0, 0]])
     {'1': 0.0, '2': 0.0, '3': 0.0}
     """
-    contr_1, contr_2, contr_3 = 0.0, 0.0, 0.0 
+    if len(suggestions)==0:
+        return {'1': 0.0, '2':0.0, '3': 0.0}
+    contr_1, contr_2, contr_3 = 0.0, 0.0, 0.0
     suggestions_dict = {}
     for payment in suggestions:
         contr_1, contr_2, contr_3 = contr_1 + payment[0], \
             contr_2 + payment[1], contr_3 + payment[2]
-        
-    suggestions_dict['1'] = contr_1/ len(suggestions)
-    suggestions_dict['2'] = contr_2/ len(suggestions)
-    suggestions_dict['3'] = contr_3/ len(suggestions)
-    
+    hundred_round = 2
+    suggestions_dict['1'] = round(contr_1/ len(suggestions), hundred_round)
+    suggestions_dict['2'] = round(contr_2/ len(suggestions), hundred_round)
+    suggestions_dict['3'] = round(contr_3/ len(suggestions), hundred_round)
     return suggestions_dict
 
 # Question 4.2
@@ -273,21 +271,17 @@ def new_pay(hours):
     {'1': 100, '2': 100, '3': 100, 'pay': 'Penalty'}
     
     """
-    
-    bonus_pay = ((hours['1'] * 0.01) + (hours['2'] * 0.015) + 
-                 min((0.02 * abs(100 - hours['3'])), 0.025 
-                 * hours['3']) - 5 ) 
-    
+    bonus_pay = ((hours['1'] * 0.01) + (hours['2'] * 0.015) +
+                 min((0.02 * abs(100 - hours['3'])), 0.025
+                 * hours['3']) - 5 )
     if bonus_pay > 0:
         hours['pay'] = 'Bonus'
-    elif bonus_pay == 0: 
+    elif bonus_pay == 0:
         hours['pay'] = '0'
     elif bonus_pay < 0 :
         hours['pay'] = 'Penalty'
-        if hours['1'] < 0 or hours['3'] < 0 or hours['3'] < 0: 
+        if hours['1'] < 0 or hours['3'] < 0 or hours['3'] < 0:
             bonus_pay = -10
-        
-    
     return bonus_pay
 
 # Question 5
@@ -322,12 +316,11 @@ def potential_ideas_for_business(items):
     []
     """
     new_list = []
-    for supplier in items.keys(): 
-        for item in items[supplier]: 
+    for supplier in items.keys():
+        for item in items[supplier]:
             if item not in new_list:
                 new_list.append(item)
-    new_list.sort() 
-        
+    new_list.sort()
     return new_list
 
 
@@ -359,10 +352,9 @@ def count_lines_1(filepath):
     
     """
     line_list = []
-    with open(filepath, 'r') as reader: 
+    with open(filepath, 'r') as reader:
         for line in reader:
-            line_list.append(line) 
-             
+            line_list.append(line)
     return len(line_list)
 
 
@@ -392,11 +384,9 @@ def count_lines_2(filepath):
     >>> count_lines_1('files/test5.txt')
     3
     """
-    with open(filepath, 'r') as reader: 
+    with open(filepath, 'r') as reader:
         doc = reader.read().split("\n")
     return len(doc)
-    
-
 
 # Question 6.3
 def count_lines_3(filepath):
@@ -424,10 +414,8 @@ def count_lines_3(filepath):
     >>> count_lines_1('files/test5.txt')
     3
     """
-    with open(filepath, 'r') as reader: 
+    with open(filepath, 'r') as reader:
         return len(reader.readlines())
-    
-
 
 # Question 7
 def collected_items(filepath):
@@ -460,12 +448,12 @@ def collected_items(filepath):
    
     
     """
-    index_of_3rd_item = 2 
+    index_of_3rd_item = 2
     collected_items_list = []
-    with open(filepath, 'r') as reader: 
-        for line in reader: 
+    with open(filepath, 'r') as reader:
+        for line in reader:
             collected_items_list.append(
-                line.split(',')[index_of_3rd_item]) 
+                line.split(',')[index_of_3rd_item])
     return collected_items_list
 
 
@@ -512,20 +500,17 @@ def case_letters(filepath):
     0
     14
     """
-    uppercase_count = 0 
-    lowercase_count = 0 
+    uppercase_count = 0
+    lowercase_count = 0
     file_name = filepath
     for char in file_name:
-        if char.isupper(): 
-            uppercase_count += 1 
-        elif char.islower(): 
-            lowercase_count += 1 
+        if char.isupper():
+            uppercase_count += 1
+        elif char.islower():
+            lowercase_count += 1
     with open(filepath, "w") as writer:
         writer.writelines(str(uppercase_count) + "\n")
         writer.writelines(str(lowercase_count) + "\n")
-        
-    
-    return 
 
 
 # Question 9
@@ -546,7 +531,7 @@ def map_office(filepath):
     >>> map_office('files/offices1.txt')
     259
     >>> with open('files/floors.txt', 'r') as f:
-    ...    prinft(f.read().strip())
+    ...    print(f.read().strip())
     ground floor
     not a valid office number
     second floor
@@ -563,7 +548,7 @@ def map_office(filepath):
     >>> map_office('files/offices3.txt')
     10
     >>> with open('files/floors.txt', 'r') as f:
-    ...    prinft(f.read().strip())
+    ...    print(f.read().strip())
     ground floor
     
 
@@ -571,41 +556,35 @@ def map_office(filepath):
     201
     >>> with open('files/floors.txt', 'r') as f:
     ...    print(f.read().strip())
-    second floor 
+    second floor
     
     >>> map_office('files/offices5.txt')
     400
     >>> with open('files/floors.txt', 'r') as f:
-    ...    prinft(f.read().strip())
-    third floor
+    ...    print(f.read().strip())
+    third floor and above
 
    
     """
-    floor_sum = 0 
-    floor_name = [] 
-    with open(filepath, 'r') as reader: 
-        for line in reader: 
+    floor_sum = 0
+    floor_name = []
+    with open(filepath, 'r') as reader:
+        for line in reader:
             line = int(line)
             if line >= 300:
-                floor_name.append("third floor and above") 
-                floor_sum += line 
-            elif 200 <= line <= 299: 
+                floor_name.append("third floor and above")
+                floor_sum += line
+            elif 200 <= line <= 299:
                 floor_name.append("second floor")
-                floor_sum += line 
-            elif 0 < line <= 199: 
+                floor_sum += line
+            elif 0 < line <= 199:
                 floor_name.append("ground floor")
-                floor_sum += line 
-            else: 
+                floor_sum += line
+            else:
                 floor_name.append("not a valid office number")
-            
-                
-                
-                
+                  
     with open("files/floors.txt", 'w') as writer:
-        for line in floor_name: 
+        for line in floor_name:
             writer.write(line + "\n")
-                
+            
     return floor_sum
- 
-
-

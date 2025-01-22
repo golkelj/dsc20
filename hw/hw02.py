@@ -432,12 +432,16 @@ def count_lines_3(filepath):
 # Question 7
 def collected_items(filepath):
     """
-    description
+    Takes a text file with each line containing four items  name, supplier,\
+    item, and quantity of each individuals findings, with each line \
+    separated by commas.
     --
     Parameters:
+        filepath (string): path to the text file
         
     --
-    Returns:
+    Returns: 
+        list: A list with all of the items from each of the lines 
        
     >>> collected_items('files/ings1.txt')
     ['ice-cream', 'boba tea', 'fish']
@@ -542,7 +546,7 @@ def map_office(filepath):
     >>> map_office('files/offices1.txt')
     259
     >>> with open('files/floors.txt', 'r') as f:
-    ...    print(f.read().strip())
+    ...    prinft(f.read().strip())
     ground floor
     not a valid office number
     second floor
@@ -555,6 +559,27 @@ def map_office(filepath):
     not a valid office number
     second floor
     ground floor
+    
+    >>> map_office('files/offices3.txt')
+    10
+    >>> with open('files/floors.txt', 'r') as f:
+    ...    prinft(f.read().strip())
+    ground floor
+    
+
+    >>> map_office('files/offices4.txt')
+    201
+    >>> with open('files/floors.txt', 'r') as f:
+    ...    print(f.read().strip())
+    second floor 
+    
+    >>> map_office('files/offices5.txt')
+    400
+    >>> with open('files/floors.txt', 'r') as f:
+    ...    prinft(f.read().strip())
+    third floor
+
+   
     """
     floor_sum = 0 
     floor_name = [] 

@@ -30,8 +30,16 @@ def keep_a_secret(filename):
     >>> keep_a_secret('files/encoded_4.txt').strip()
     'kurt hendricks\\nsimon 1p@egg'
     """
-    # YOUR CODE GOES HERE #
-    return 
+    new_string = ''
+    with open(filename, "r") as reader: 
+        for line in reader: 
+            line = line.strip()
+            line = line.replace("!", "")
+            line = line.replace("?", "")
+            line = line.replace(";", "")
+            line = line.replace("$", "")
+            new_string += line + '\n'
+    return new_string
 
 
 # Problem 1.2
@@ -53,8 +61,19 @@ def skipped_lines(filename, skip):
     >>> skipped_lines('files/encoded_4.txt', 0).strip()
     'kurt hendricks\\nsimon 1p@egg'
     """
-    # YOUR CODE GOES HERE #
-    return
+    i = 0
+    output = ''
+    with open(filename, "r") as reader:
+        for line in reader:
+            if i % (skip + 1) == 0: 
+                line = line.strip()
+                line = line.replace("!", "")
+                line = line.replace("?", "")
+                line = line.replace(";", "")
+                line = line.replace("$", "")
+                output += line + '\n'
+            i += 1 
+    return output
 
 
 # Problem 2.1
@@ -72,8 +91,16 @@ def loose_change(lst):
     ['0 dollar(s) and 7 cents', '0 dollar(s) and 77 cents', '7 dollar(s) \
 and 77 cents', '77 dollar(s) and 77 cents']
     """
-    # YOUR CODE GOES HERE #
-    return
+    
+    cents = 0 
+    dollar = 0 
+    output = [] 
+    for i in lst:
+        cents = i % 100 
+        if i >= 100: 
+            dollar = (i - cents) / 100 
+        output.append(str(int(dollar)) + ' dollar(s) and ' + str(int(cents)) + ' cents') 
+    return output
 
 # Problem 2.2
 def ignore_cents(lst):
@@ -85,8 +112,13 @@ def ignore_cents(lst):
     >>> ignore_cents([120, 746, 3224, 15])
     40
     """
-    # YOUR CODE GOES HERE #
-    return
+    hundred_divisor = 100
+    total = 0 
+    for i in lst:
+        if i >= hundred_divisor: 
+            total += i // hundred_divisor
+    return total
+    
 
 
 # Problem 2.3
@@ -103,8 +135,13 @@ def ignore_cents_and_small_amount(lst):
     >>> ignore_cents_and_small_amount([12345, 50000, 4999])
     623
     """
-    # YOUR CODE GOES HERE #
-    return
+    minimun_amount = 50 
+    hundred_divisor = 100
+    total = 0 
+    for i in lst:
+        if i > minimun_amount * hundred_divisor:
+            total += i // hundred_divisor        
+    return total
 
 
 # Problem 2.4
@@ -119,8 +156,14 @@ def keep_dollars_only(lst):
     >>> keep_dollars_only([(19, "dollars"), (275, "dollars"), (100, "dollars")])
     [19, 275, 100]
     """
-    # YOUR CODE GOES HERE #
-    return
+    output = []
+    for i in lst: 
+        if i[1] == 'dollars':
+            output.append(i[0])
+        else: 
+            output.append('skip')
+        
+    return output
 
 
 # Problem 3
@@ -137,8 +180,11 @@ def combine_the_strings(names):
     >>> combine_the_strings([("Marina", "Langlois")])
     ['Marina', 'Langlois']
     """
-    # YOUR CODE GOES HERE #
-    return
+    output = []
+    for i in names: 
+        for j in i: 
+            output.append(j) 
+    return output
 
 
 # Problem 4
@@ -153,8 +199,11 @@ def selected_name(names, char):
     >>> selected_name(['Dana Donaldson', 'Selma Owen'], 'Z')
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    output = []
+    for i in names:
+        if char.lower() in i.split(" ")[-1]:
+            output.append(i.split(" ")[0]) 
+    return output
 
 
 # Problem 5
@@ -167,8 +216,15 @@ def pay_reaction(proposed_salaries):
     >>> pay_reaction([0.01, 100000])
     ['Not enough', 'Will take it']
     """
-    # YOUR CODE GOES HERE #
-    return
+    output =[]
+    for i in proposed_salaries: 
+        if i <= 1000: 
+            output.append('Not enough')
+        elif i <= 2000: 
+            output.append("Thinking")
+        else:
+            output.append("Will take it")      
+    return output
 
 
 # Question 6.1
@@ -186,8 +242,18 @@ def months_to_years(ages):
     >>> months_to_years(ages)
     [[16], [51, 0]]
     """
-    # YOUR CODE GOES HERE #
-    return
+    
+    outer_list = []
+    months_in_year = 12
+    for i in ages:
+        inner_list = []
+        for j in i: 
+            if j // months_in_year > 0: 
+                inner_list.append(j // months_in_year)
+            else: 
+                inner_list.append(0)
+        outer_list.append(inner_list)
+    return outer_list
 
 
 # Question 6.2
@@ -206,8 +272,18 @@ def harder_convert(ages):
     >>> harder_convert(ages)
     [[11], [0, 0]]
     """
-    # YOUR CODE GOES HERE #
-    return
+    outer_list = []
+    months_in_year = 12
+    for i in ages:
+        inner_list = []
+        for j in i: 
+            if j // months_in_year > 0: 
+                inner_list.append(j // months_in_year)
+            else: 
+                inner_list.append(0)
+        outer_list.append(inner_list)
+    return outer_list
+    
 
 
 # Question 6.3
@@ -225,5 +301,12 @@ def older_than_30(ages):
     >>> older_than_30(ages)
     2
     """
-    # YOUR CODE GOES HERE #
-    return
+    count = 0 
+    months_in_year = 12
+    for i in ages:
+        for j in i: 
+            if j // months_in_year >= 30: 
+                count += 1 
+                
+    return count
+

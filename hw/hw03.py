@@ -1,16 +1,21 @@
 """
 DSC 20 Winter 2024 Homework 03
-Name: TODO
-PID: TODO
-Source: TODO
+Name: Jaden Goelkel
+PID: A18247795
+Source: Readings
 """
 # Question 1.1
 def operate_nums(lst):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    For numbers in a list it will double of the odd integers and triple all of the even integers  
+    --
+    Parameters:
+        lst (list): 
+        
+    --
+    Returns:
+        list: All odd numbers doubled and even numbers tripled
+    
 
     >>> operate_nums([1, 2, 3, 's'])
     Traceback (most recent call last):
@@ -22,18 +27,39 @@ def operate_nums(lst):
     AssertionError
     >>> operate_nums([2, 3, -2, 0, 5])
     [6, 6, -6, 0, 10]
+    >>> operate_nums([1, 2, 'f', 's'])
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    >>> operate_nums([2, "chich", -2, 0, 5])
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    >>> operate_nums([1, 3, -2, 0, 5])
+    [2, 6, -6, 0, 10]
     """
-    # YOUR CODE GOES HERE #
-    return
+    assert all([isinstance(i, int) for i in lst]) 
+    double =  2
+    triple = 3
+    new_list = [i * triple if i % 2 == 0 else i * double for i in lst]
+    return new_list
 
 # Question 1.2
 def string_lengths(text, nums):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Takes a list of text and number and check for each index position that \
+    that the len of the text is greater than the num at the same index
+    --
+    Parameters:
+        text (list): list of non empty strings that are going to be used for \
+        the comparsion
+        nums (list): list of positive integers 
+        
+    --
+    Returns:
+        list: list of booleans that is True if the lenght of the text at i is\
+        greater than the positive integer at i
+    
     >>> string_lengths(['a', 'b', 'c'], [1, 2])
     Traceback (most recent call last):
     ...
@@ -48,17 +74,40 @@ def string_lengths(text, nums):
     AssertionError
     >>> string_lengths(['abc', 'abcd', 'abcde'], [2, 5, 5])
     [True, False, False]
+    
+    ###my tests###
+    >>> string_lengths([], [1, 2])
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    >>> string_lengths([''], [1, 2])
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    >>> string_lengths(['', ''], [-1, 5])
+    Traceback (most recent call last):
+    ...
+    AssertionError
     """
-    # YOUR CODE GOES HERE #
-    return
+    assert all(isinstance(i, int) and i > 0 for i in nums)
+    assert all(isinstance(i, str) and len(i) > 0 for i in text)
+    assert len(text) == len(nums)
+    return [len(text[i]) > nums[i] for i in range(len(nums))]
 
 # Question 1.3
 def process_dict(input_dict):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Calculates the len of the number in the keys tuple and the sum of the \
+    len of the values for each element of the dictionary
+    --
+    Parameters:
+        input_dict (dict): Keys are tuples of integers and the values are \
+        a list of strings 
+    --
+    Returns:
+        list: list with each item being the sum of the \
+        length of all the values and len of the keys \
+        tuple 
     
     >>> process_dict({1: ['a', 'b', 'c'], (1, 2): ['a']})
     Traceback (most recent call last):
@@ -71,18 +120,44 @@ def process_dict(input_dict):
     >>> process_dict({(1, 2): ['dsc', 'dsc20', 'dsc30'], (2,): \
     ['b']})
     [15, 2]
+    
+    ###My tests###
+    >>> process_dict({1: [5], (1, 2): ['a']})
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    >>> process_dict({(1, 2): [6.53], (2, ): ['b']})
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    >>> process_dict({(1, 2): [100000], (2,): \
+    ['b']})
+    Traceback (most recent call last):
+    ...
+    AssertionError
     """
-    # YOUR CODE GOES HERE #
-    return
+    assert (all([isinstance(i, tuple) for i in input_dict.keys()]) 
+            and all(all(isinstance(i, str) for i in j) for j in 
+                     input_dict.values()))
+    return [len(j) + sum(len(i) for i in input_dict[j]) for j in 
+            input_dict.keys()]
 
 # Question 2
 def unusual_sort(indices, items):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Calculates the new pay for the contractors according to the following \
+    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
+    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
+    hours worked by contractor 3) - 5
+    --
+    Parameters:
+        hours (dict): Dictionary containing the hours that each of the \
+        contractors worked. 
+        
+    --
+    Returns:
+        float: The calculated bonus pay
+    
     >>> unusual_sort([0, 4, 2, 3, 1], \
         ["zero", "four", "two", "three", "one"])
     [('zero', 0, 0), ('one', 4, 1), ('two', 2, 2), \
@@ -112,11 +187,19 @@ def unusual_sort(indices, items):
 # Question 3
 def change_input(strange_list):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Calculates the new pay for the contractors according to the following \
+    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
+    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
+    hours worked by contractor 3) - 5
+    --
+    Parameters:
+        hours (dict): Dictionary containing the hours that each of the \
+        contractors worked. 
+        
+    --
+    Returns:
+        float: The calculated bonus pay
+    
     >>> change_input(["3.14IS PIE", "11My aGe iS"])
     ['6.28IS PIE', '22My AGE IS']
     >>> change_input(["go t6o sleep at ", \
@@ -133,11 +216,19 @@ def change_input(strange_list):
 # Question 4
 def change_input_even_more(strange_list):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Calculates the new pay for the contractors according to the following \
+    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
+    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
+    hours worked by contractor 3) - 5
+    --
+    Parameters:
+        hours (dict): Dictionary containing the hours that each of the \
+        contractors worked. 
+        
+    --
+    Returns:
+        float: The calculated bonus pay
+    
     >>> change_input_even_more(["3.14IS PIE", "11My aGe iS"])
     ['.IS PIE628', 'My AGE IS22']
     >>> change_input_even_more(["go t6o sleep at ", \
@@ -156,11 +247,19 @@ def change_input_even_more(strange_list):
 # Question 5.1
 def cheapest_gas(gas_stations, mileage):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Calculates the new pay for the contractors according to the following \
+    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
+    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
+    hours worked by contractor 3) - 5
+    --
+    Parameters:
+        hours (dict): Dictionary containing the hours that each of the \
+        contractors worked. 
+        
+    --
+    Returns:
+        float: The calculated bonus pay
+    
     >>> gas_stations = { \
         'Shell': [(20, 5.2), (30, 5.3), (50, 5.6), (80, 5.3)], \
         'Chevron': [(10, 5.8), (60, 5.7)], \
@@ -179,11 +278,19 @@ def cheapest_gas(gas_stations, mileage):
 # Question 5.2
 def cheapest_average_gas(gas_stations, mileage):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Calculates the new pay for the contractors according to the following \
+    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
+    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
+    hours worked by contractor 3) - 5
+    --
+    Parameters:
+        hours (dict): Dictionary containing the hours that each of the \
+        contractors worked. 
+        
+    --
+    Returns:
+        float: The calculated bonus pay
+    
     >>> gas_stations = { \
         'Shell': [(20, 5.2), (30, 5.3), (50, 5.6), (80, 5.3)], \
         'Chevron': [(10, 5.8), (60, 5.7)], \
@@ -202,11 +309,19 @@ def cheapest_average_gas(gas_stations, mileage):
 # Question 6
 def new_orders(orders, action, dish_name, amount):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Calculates the new pay for the contractors according to the following \
+    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
+    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
+    hours worked by contractor 3) - 5
+    --
+    Parameters:
+        hours (dict): Dictionary containing the hours that each of the \
+        contractors worked. 
+        
+    --
+    Returns:
+        float: The calculated bonus pay
+    
     >>> orders = {'pizza': 10, 'burger': 5}
     >>> new_orders(orders, 'add', 'pizza', 5)
     {'pizza': 15, 'burger': 5}

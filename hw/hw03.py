@@ -145,18 +145,17 @@ def process_dict(input_dict):
 # Question 2
 def unusual_sort(indices, items):
     """
-    Calculates the new pay for the contractors according to the following \
-    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
-    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
-    hours worked by contractor 3) - 5
+    Sorts a list of indices and items to give the element, the original\
+    index and the new index
     --
     Parameters:
-        hours (dict): Dictionary containing the hours that each of the \
-        contractors worked. 
+        indices (list) - list of length n that contains integers 0 to n-1
+        items (list) - list of length n
         
     --
     Returns:
-        float: The calculated bonus pay
+        list: list of tuples that contains the element from items and the \
+        original index from indices and the new index 
     
     >>> unusual_sort([0, 4, 2, 3, 1], \
         ["zero", "four", "two", "three", "one"])
@@ -180,25 +179,45 @@ def unusual_sort(indices, items):
     Traceback (most recent call last):
     ...
     AssertionError
+    
+    ##my test##
+    >>> unusual_sort([0.0, 4.0, 2.0, 3.0, 1.0], \
+    ["zero", "four", "chicken", "three", "one"])
+    Traceback (most recent call last):
+    ...
+    AssertionError
+
+    >>> unusual_sort([0, 4, 2, 3, 0], \
+        ["zero", "four", "corn", "three", "one"])
+    Traceback (most recent call last):
+    ...
+    AssertionError
+
+    >>> unusual_sort([0, 4, 2, 3], \
+        ["zero", "four", "poo", "three", "one"])
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    
     """
-    # YOUR CODE GOES HERE #
-    return
+    assert all(isinstance(i, int) for i in indices)
+    assert all(i in indices for i in range(len(indices)))
+    indexs = [items[i] for i in indices]
+    
+    return [(indexs[i], indices[i], i)for i in range(len(indices))]
 
 # Question 3
 def change_input(strange_list):
     """
-    Calculates the new pay for the contractors according to the following \
-    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
-    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
-    hours worked by contractor 3) - 5
-    --
+    Decodes a list of strings by performing the following transformations on \
+    each string, all digits multipled by two, Lowercase vowels converted to\
+    uppercase, and all other characters remain unchanged.
+    
     Parameters:
-        hours (dict): Dictionary containing the hours that each of the \
-        contractors worked. 
-        
-    --
+        strings (list): list of strings to be decoded
+    
     Returns:
-        float: The calculated bonus pay
+        list: list of the new strings with the decoding rules
     
     >>> change_input(["3.14IS PIE", "11My aGe iS"])
     ['6.28IS PIE', '22My AGE IS']
@@ -209,25 +228,39 @@ def change_input(strange_list):
     Traceback (most recent call last):
     ...
     AssertionError
+    
+    ###my test###
+    >>> change_input(["1.14IS PIE", "1My aGe iS"])
+    ['2.28IS PIE', '2My AGE IS']
+    >>> change_input(["go to sleep at ", \
+        "jaden"])
+    ['gO tO slEEp At ', 'jAdEn']
+    >>> change_input("hello")
+    Traceback (most recent call last):
+    ...
+    AssertionError
+     
     """
-    # YOUR CODE GOES HERE #
-    return
+    digit = '0123456789'
+    assert isinstance(strange_list, list) 
+    return [''.join(str(int(i) * 2) if i in digit else i.upper()
+            if i in ['a','e','i','o','u'] else i for i in j) for j in 
+            strange_list]
 
 # Question 4
 def change_input_even_more(strange_list):
     """
-    Calculates the new pay for the contractors according to the following \
-    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
-    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
-    hours worked by contractor 3) - 5
+    Takes a list of and applies the following modifications: Multiple any \
+    numbers by 2 and move it to the end of the string, lowercase vowels are\
+    turned into uppercase, and everything else is left the same
+        
     --
     Parameters:
-        hours (dict): Dictionary containing the hours that each of the \
-        contractors worked. 
+        strange_list (list): list of strings to be modified
         
     --
     Returns:
-        float: The calculated bonus pay
+        list: list with all the aforementioned modifications
     
     >>> change_input_even_more(["3.14IS PIE", "11My aGe iS"])
     ['.IS PIE628', 'My AGE IS22']
@@ -240,25 +273,44 @@ def change_input_even_more(strange_list):
     AssertionError
 
     # Add at least 3 doctests below here #
+    >>> change_input_even_more(["31", "12My aGe iS"])
+    ['62', 'My AGE IS24']
+    >>> change_input_even_more(["my name is jaden", \
+        "33"])
+    ['my nAmE Is jAdEn', '66']
+    >>> change_input_even_more("oo")
+    Traceback (most recent call last):
+    ...
+    AssertionError
     """
-    # YOUR CODE GOES HERE #
-    return
+    
+    assert isinstance(strange_list, list) 
+    assert all(isinstance(i, str) for i in strange_list)
+    doubler = 2 
+    digits = "1234567890"
+    
+    return [''.join([i.upper() if i in 'aeiou' else i for i in j if i not 
+                     in digits]) +  ''.join([str(int(i) * doubler) for i 
+                     in j if i in digits]) for j in strange_list]
+
+    
 
 # Question 5.1
 def cheapest_gas(gas_stations, mileage):
     """
-    Calculates the new pay for the contractors according to the following \
-    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
-    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
-    hours worked by contractor 3) - 5
+    Gives the name of the lowest price gas station that is reachable
     --
     Parameters:
-        hours (dict): Dictionary containing the hours that each of the \
-        contractors worked. 
+        gas_stations (dict): dict with the brands as the key and \
+        a tuple as the value with the first element of the tuple \
+        being the distance and the second being the cost
+        mileage (int): the remaining distance the car can travel \
+        to the gas station
         
     --
     Returns:
-        float: The calculated bonus pay
+        string: name of the cheapest gas station within the distance
+        
     
     >>> gas_stations = { \
         'Shell': [(20, 5.2), (30, 5.3), (50, 5.6), (80, 5.3)], \
@@ -272,8 +324,12 @@ def cheapest_gas(gas_stations, mileage):
 
     # Add at least 3 doctests below here #
     """
-    # YOUR CODE GOES HERE #
-    return
+   
+    gas_price = [[(i[1], j) for i in gas_stations[j] if i[0] <= mileage] for j in gas_stations]
+    gas_price = [i for i in gas_price if len(i) > 0]
+    lowest_price = min([i[0] for i in gas_price])
+    
+    return lowest_price[1]
 
 # Question 5.2
 def cheapest_average_gas(gas_stations, mileage):
@@ -309,18 +365,22 @@ def cheapest_average_gas(gas_stations, mileage):
 # Question 6
 def new_orders(orders, action, dish_name, amount):
     """
-    Calculates the new pay for the contractors according to the following \
-    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
-    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
-    hours worked by contractor 3) - 5
+    From a dictionary of orders with a dish and amount pair, it will either \
+    of remove items from a certain dish name by a given amount
     --
     Parameters:
-        hours (dict): Dictionary containing the hours that each of the \
-        contractors worked. 
+        orders (dict): Contains the food items as the keys and the \
+        amount as the value
+        action (string): "add" or "remove"
+        dish_name (string): the name of the dish (already in orders) that \
+        the action will be commited onto
+        amount (int): the amount that will be added or subtracted to \
+        the dish in the orders dictionary
         
     --
     Returns:
-        float: The calculated bonus pay
+        dict: the updated orders dictionary
+        
     
     >>> orders = {'pizza': 10, 'burger': 5}
     >>> new_orders(orders, 'add', 'pizza', 5)
@@ -338,6 +398,28 @@ def new_orders(orders, action, dish_name, amount):
     AssertionError
 
     # Add at least 3 doctests below here #
+    >>> orders = {'pizza': 1, 'burger': 0}
+    >>> new_orders(orders, 'add', 'pizza', 5)
+    {'pizza': 6, 'burger': 0}
+
+    >>> new_orders(orders, 'remove', 'burger', 3)
+    {'pizza': 1, 'burger': 0}
+
+    >>> new_orders(orders, 'remove', 'pizza', 15)
+    {'pizza': 0, 'burger': 0}
+
+    >>> new_orders([], 'remove', 'burger', 3)
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    
+    
     """
-    # YOUR CODE GOES HERE #
-    return
+    assert isinstance(orders, dict)
+    assert isinstance(amount, int)
+    assert action == "remove" or action == "add"
+   
+    return  {dish: max(orders[dish] + amount if action == "add" and
+                       dish == dish_name else orders[dish] - amount if
+                       action == "remove" and dish == dish_name else
+                       orders[dish], 0) for dish in orders}

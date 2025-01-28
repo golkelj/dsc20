@@ -2,7 +2,7 @@
 DSC 20 Winter 2024 Homework 03
 Name: Jaden Goelkel
 PID: A18247795
-Source: Readings
+Source: Readings + https://www.w3schools.com/python/ref_string_join.asp
 """
 # Question 1.1
 def operate_nums(lst):
@@ -10,7 +10,7 @@ def operate_nums(lst):
     For numbers in a list it will double of the odd integers and triple all of the even integers  
     --
     Parameters:
-        lst (list): 
+        lst (list): list of all positive numbers 
         
     --
     Returns:
@@ -38,10 +38,12 @@ def operate_nums(lst):
     >>> operate_nums([1, 3, -2, 0, 5])
     [2, 6, -6, 0, 10]
     """
-    assert all([isinstance(i, int) for i in lst]) 
+    assert isinstance(lst, list)
+    assert all([isinstance(i, int) for i in lst])
     double =  2
     triple = 3
-    new_list = [i * triple if i % 2 == 0 else i * double for i in lst]
+    even_mod_number = 2
+    new_list = [i * triple if i % even_mod_number == 0 else i * double for i in lst]
     return new_list
 
 # Question 1.2
@@ -89,6 +91,8 @@ def string_lengths(text, nums):
     ...
     AssertionError
     """
+    assert isinstance(text, list)
+    assert isinstance(nums, list)
     assert all(isinstance(i, int) and i > 0 for i in nums)
     assert all(isinstance(i, str) and len(i) > 0 for i in text)
     assert len(text) == len(nums)
@@ -136,10 +140,10 @@ def process_dict(input_dict):
     ...
     AssertionError
     """
-    assert (all([isinstance(i, tuple) for i in input_dict.keys()]) 
-            and all(all(isinstance(i, str) for i in j) for j in 
-                     input_dict.values()))
-    return [len(j) + sum(len(i) for i in input_dict[j]) for j in 
+    assert (all([isinstance(i, tuple) for i in input_dict.keys()])
+            and all(all(isinstance(i, str) for i in j) for j in
+                    input_dict.values()))
+    return [len(j) + sum(len(i) for i in input_dict[j]) for j in
             input_dict.keys()]
 
 # Question 2
@@ -200,10 +204,12 @@ def unusual_sort(indices, items):
     AssertionError
     
     """
+    assert isinstance(indices, list)
+    assert isinstance(items, list)
     assert all(isinstance(i, int) for i in indices)
     assert all(i in indices for i in range(len(indices)))
+    assert len(indices) == len(items)
     indexs = [items[i] for i in indices]
-    
     return [(indexs[i], indices[i], i)for i in range(len(indices))]
 
 # Question 3
@@ -241,10 +247,12 @@ def change_input(strange_list):
     AssertionError
      
     """
+    doubler = 2
     digit = '0123456789'
-    assert isinstance(strange_list, list) 
-    return [''.join(str(int(i) * 2) if i in digit else i.upper()
-            if i in ['a','e','i','o','u'] else i for i in j) for j in 
+    assert isinstance(strange_list, list)
+    assert all([isinstance(x, str) for x in strange_list])
+    return [''.join(str(int(i) * doubler) if i in digit else i.upper()
+            if i in ['a','e','i','o','u'] else i for i in j) for j in
             strange_list]
 
 # Question 4
@@ -283,17 +291,17 @@ def change_input_even_more(strange_list):
     ...
     AssertionError
     """
-    
-    assert isinstance(strange_list, list) 
+
+    assert isinstance(strange_list, list)
     assert all(isinstance(i, str) for i in strange_list)
-    doubler = 2 
+    doubler = 2
     digits = "1234567890"
-    
-    return [''.join([i.upper() if i in 'aeiou' else i for i in j if i not 
-                     in digits]) +  ''.join([str(int(i) * doubler) for i 
+
+    return [''.join([i.upper() if i in 'aeiou' else i for i in j if i not
+                     in digits]) +  ''.join([str(int(i) * doubler) for i
                      in j if i in digits]) for j in strange_list]
 
-    
+
 
 # Question 5.1
 def cheapest_gas(gas_stations, mileage):
@@ -323,29 +331,36 @@ def cheapest_gas(gas_stations, mileage):
     'Shell'
 
     # Add at least 3 doctests below here #
+     >>> gas_stations = { \
+        'Shell': [(20, 5.2), (30, 5.3), (50, 5.6), (80, 5.3)], \
+        'Chevron': [(10, 5.8), (60, 5.7)], \
+        'Arco': [(20, 5.3), (10, 5.4)] \
+    }
+    >>> cheapest_gas(gas_stations, 11)
+    'Arco'
+    >>> cheapest_gas(gas_stations, 21)
+    'Shell'
+    >>> cheapest_gas(gas_stations, 30)
+    'Shell'
     """
-   
+
     gas_price = [[(i[1], j) for i in gas_stations[j] if i[0] <= mileage] for j in gas_stations]
     gas_price = [i for i in gas_price if len(i) > 0]
     lowest_price = min([i[0] for i in gas_price])
-    
+
     return lowest_price[1]
 
 # Question 5.2
 def cheapest_average_gas(gas_stations, mileage):
     """
-    Calculates the new pay for the contractors according to the following \
-    rules: Contractor 1 hours * 0.1, Contractor 2 hours * 0.15, \
-    min(0.02 * abs(100 - hours worked by contractor 3), 0.025 * \
-    hours worked by contractor 3) - 5
+    
     --
     Parameters:
-        hours (dict): Dictionary containing the hours that each of the \
-        contractors worked. 
+        
         
     --
     Returns:
-        float: The calculated bonus pay
+        
     
     >>> gas_stations = { \
         'Shell': [(20, 5.2), (30, 5.3), (50, 5.6), (80, 5.3)], \
@@ -417,8 +432,7 @@ def new_orders(orders, action, dish_name, amount):
     """
     assert isinstance(orders, dict)
     assert isinstance(amount, int)
-    assert action == "remove" or action == "add"
-   
+    assert "remove" or "add" in dish_name
     return  {dish: max(orders[dish] + amount if action == "add" and
                        dish == dish_name else orders[dish] - amount if
                        action == "remove" and dish == dish_name else

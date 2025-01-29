@@ -1,7 +1,7 @@
 """
 DSC 20 Winter 2025 Lab 04
-Name: TODO
-PID: TODO
+Name: Jaden Goelkel
+PID: A18247795
 """
 
 # Question 1.1
@@ -25,7 +25,7 @@ def problem_1(int_lst, mult_factor):
     []
     """
     # YOUR CODE GOES HERE #
-    return
+    return list(map(lambda x: x * mult_factor, int_lst))
 
 
 # Question 1.2
@@ -50,8 +50,7 @@ def problem_2(int_lst, factor):
     >>> problem_2([1, 3, 4, 6, 5], 2)
     [4, 6]
     """
-    # YOUR CODE GOES HERE #
-    return
+    return list(filter(lambda x: x % factor == 0, int_lst))
 
 
 # Question 1.3
@@ -77,7 +76,7 @@ def problem_3(int_lst, factor):
     [None, None, 4, 6, None]
     """
     # YOUR CODE GOES HERE #
-    return
+    return list(map(lambda x: x if x % factor == 0 else None, int_lst))
 
 
 # Question 1.4
@@ -101,7 +100,7 @@ def problem_4(lst):
     []
     """
     # YOUR CODE GOES HERE #
-    return
+    return list(filter(lambda x: x is not None, lst))
 
 
 # Question 2.1
@@ -131,7 +130,8 @@ def forming_teams_1(teams, limit):
     []
     """
     # YOUR CODE GOES HERE #
-    return
+    return list(map(lambda x: x if len(teams[x]) >= limit
+                    else "Need more players", teams))
 
 
 # Question 2.2
@@ -160,7 +160,7 @@ def forming_teams_2(teams, limit):
     []
     """
     # YOUR CODE GOES HERE #
-    return
+    return list(filter(lambda x: len(teams[x]) >= limit, teams))
 
 
 # Question 3.1
@@ -191,7 +191,7 @@ def next_round_1(teams, threshold):
     []
     """
     # YOUR CODE GOES HERE #
-    return
+    return list(map(lambda x: (x, teams[x] * 25), filter(lambda x: teams[x] >= threshold, teams)))
 
 
 # Question 3.2
@@ -221,7 +221,7 @@ def next_round_2(teams, threshold):
     []
     """
     # YOUR CODE GOES HERE #
-    return
+    return list(map(lambda x: (x, len(list(filter(lambda y: y >= threshold, teams[x])))), teams))
 
 
 # Question 3.3
@@ -249,4 +249,4 @@ def next_round_3(teams, results):
     []
     """
     # YOUR CODE GOES HERE #
-    return
+    return list(map(lambda x: (teams[x], results[x]), filter(lambda x: results[x] in ('qualified', 'advanced', 'winner'), range(len(results)))))

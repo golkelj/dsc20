@@ -1,17 +1,17 @@
 """
 DSC 20 Winter 2025 Homework 04
-Name: TODO
-PID: TODO
-Source: TODO
+Name: Jaden Goelkel
+PID: A18247795
+Source: The Slides
 """
 
 # Question 1
 def place_of_birth(file_in):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    From a text file, extracts the city name and the person and \
+    creates a dictionary with the city name (different spelling \
+    indicates a different city) as the keys and a list of the pe\
+    ople from the city. 
 
     >>> place_of_birth('files/info_1.txt')
     {'Chicago': ['Rob'], 'New York': ['Ella'], 'New York.': ['Mary']}
@@ -22,18 +22,39 @@ def place_of_birth(file_in):
     {}
 
     # Add at least 3 doctests below here #
+    #1
+    >>> place_of_birth('files/info_3.txt')
+    {'San Diego': ['Sue'], 'London': ['Ben']}
+    
+    #2 
+    >>> place_of_birth('files/info_4.txt')
+    {'Paris': ['Kate']}
+    
+    #3 
+    >>> place_of_birth('files/info_5.txt')
+    {'Texas': ['Jaden']}
+    
     """
-    # YOUR CODE GOES HERE #
-    return
-
+    with open(file_in, "r") as reader:
+        lines = reader.readlines()
+    if len(lines) <= 1:
+        return {}
+    location = {}
+    for line in lines[1:]:
+        # I watched a youtube that told me that _ is a ignore value
+        name, city, _ = [item.strip() for item in line.split(',')]
+        if city not in location:
+            location[city] = []
+        location[city].append(name)
+    return location
 
 # Question 2
 def age_groups(file_in, file_out):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Extracts data from a text file to then output each name and a -1 if the \
+    person is younger than 35, 0 if the person is 35, or 1 is the person is \
+    older than 35. This is then put in a new file with the headerline       \
+    "name,older than 35" 
 
     >>> age_groups('files/info_1.txt', 'files/age_1_out.txt')
     >>> with open('files/age_1_out.txt', 'r') as outfile1:
@@ -62,18 +83,60 @@ def age_groups(file_in, file_out):
     name,older than 35
 
     # Add at least 3 doctests below here #
+    #1 
+    >>> age_groups('files/info_3.txt', 'files/age_3_out.txt')
+    >>> with open('files/age_3_out.txt', 'r') as outfile3:
+    ...    for line in outfile3:
+    ...       print(line.strip())
+    name,older than 35
+    Sue,-1
+    Ben,1
+    
+    #2
+    >>> age_groups('files/info_4.txt', 'files/age_4_out.txt')
+    >>> with open('files/age_4_out.txt', 'r') as outfile4:
+    ...    for line in outfile4:
+    ...       print(line.strip())
+    name,older than 35
+    Kate,1
+    
+    #3 
+    >>> age_groups('files/info_5.txt', 'files/age_5_out.txt')
+    >>> with open('files/age_5_out.txt', 'r') as outfile5:
+    ...    for line in outfile5:
+    ...       print(line.strip())
+    name,older than 35
+    Jaden,-1
     """
-    # YOUR CODE GOES HERE #
-    return
-                
+    current_year = 2024
+    threshold_age = 35
+    with open(file_in, 'r') as reader:
+        lines = reader.readlines()
+    with open(file_out, 'w') as writer:
+        writer.write("name,older than 35\n")
+        if len(lines) <= 1:
+            return
+        for line in lines[1:]:
+            # I watched a youtube that told me that _ is a ignore value
+            name, _, dob = [item.strip() for item in line.split(',')]
+            yob = int(dob.split('/')[-1])
+            age = current_year - yob
+            if age > threshold_age:
+                writer.write(f"{name},1\n")
+            elif age < threshold_age:
+                writer.write(f"{name},-1\n")
+            else:
+                writer.write(f"{name},0\n")
 
 # Question 3
 def several_files(files_lst, file_out):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    This takes in a list of files with a header line and then name, city, and\
+    date of birth and writes the all the information from all the files \
+    (only one header) into one new files. If there is no contentin the files \
+    then it will return just the header. If there is any additional whitespac\
+    es they will need to be removed. 
+    
 
     >>> lst_1 = ['files/info_1.txt','files/info_3.txt', 'files/info_4.txt']
     >>> several_files(lst_1, 'files/several_1_out.txt')
@@ -102,19 +165,64 @@ def several_files(files_lst, file_out):
 
 
     # Add at least 3 doctests below here #
+    #1 
+    >>> lst_3 = ['files/header.txt','files/header.txt']
+    >>> several_files(lst_3, 'files/several_3_out.txt')
+    >>> with open('files/several_3_out.txt', 'r') as outfile3:
+    ...    for line in outfile3:
+    ...       print(line.strip())
+    name,city,DOB
+    
+    #2
+    >>> lst_4 = ['files/info_1.txt','files/info_5.txt']
+    >>> several_files(lst_4, 'files/several_4_out.txt')
+    >>> with open('files/several_4_out.txt', 'r') as outfile4:
+    ...    for line in outfile4:
+    ...       print(line.strip())
+    name,city,DOB
+    Rob,Chicago,Oct 10 2010
+    Ella,New York,Apr 09 1970
+    Mary,New York.,Jan 01 2004
+    Jaden,Texas,Dec 25 2005
+    
+    #3
+    >>> lst_5 = ['files/info_4.txt']
+    >>> several_files(lst_5, 'files/several_5_out.txt')
+    >>> with open('files/several_5_out.txt', 'r') as outfile5:
+    ...    for line in outfile5:
+    ...       print(line.strip())
+    name,city,DOB
+    Kate,Paris,Jul 13 1945
     """
-    # YOUR CODE GOES HERE #
-    return
-
+    months = {
+        '01': 'Jan', '02': 'Feb', '03': 'Mar', '04': 'Apr',
+        '05': 'May', '06': 'Jun', '07': 'Jul', '08': 'Aug',
+        '09': 'Sep', '10': 'Oct', '11': 'Nov', '12': 'Dec'
+    }
+    with open(file_out, 'w') as writer:
+        writer.write("name,city,DOB\n")
+        for file_in in files_lst:
+            with open(file_in, 'r') as reader:
+                lines = reader.readlines()
+                for line in lines[1:]:
+                    name, city, dob = [item.strip() for item
+                                       in line.split(',')]
+                    month, day, year = dob.split('/')
+                    formatted_dob = months[month]+" "+day+" "+year
+                    writer.write(name+','+city+','+formatted_dob+"\n")
 
 # Question 4
 def postcards(info_list):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
-
+    Creates a dictionary with the names and modified strings. 
+    
+    List of tuples containing name, price, age, place is given and \
+    if the age is less than 75, the first three letters of the first \
+    the age, the full last name, last digit of the price, and the \
+    reversed place is added to the string. 
+    
+    No duplicate names as the inputs
+    
     >>> postcards([
     ...     ('Yue Wang', 96, 18, 'Hoover Dam'),
     ...     ('Cleo Patra', 10, 32, 'Bellagios')
@@ -130,9 +238,39 @@ def postcards(info_list):
     {'Gwen Am': 'gwe54am4naitenev', 'Freya Dog': 'fre1dog4pirts eht'}
 
     # Add at least 3 doctests below here #
-    """
-    return
+    >>> postcards([
+    ...     ('Jaden Goelkel', 45, 22, 'Houston'),
+    ...     ('Jaden Lee', 80, 50, 'Dallas')
+    ... ])
+    {'Jaden Goelkel': 'jad22goelkel5notsuoh'}
 
+    >>> postcards([
+    ...     ('Jaden Goelkel', 12, 30, 'Austin'),
+    ...     ('Jaden Lee', 20, 19, 'San Antonio')
+    ... ])
+    {'Jaden Goelkel': 'jad30goelkel2nitsua', 'Jaden Lee': 'jad19lee0oinotna \
+nas'}
+
+    >>> postcards([
+    ...     ('Jaden Goelkel', 74, 40, 'Fort Worth'),
+    ...     ('Jaden Lee', 10, 25, 'El Paso')
+    ... ])
+    {'Jaden Goelkel': 'jad40goelkel4htrow trof', 'Jaden Lee': 'jad25lee0osap \
+le'}
+    """
+    fitler_info_list  = list(filter(lambda x: x[1] < 75, info_list))
+    postcard_phrase = list(map(
+        lambda x: ''.join([
+        x[0][:3].lower(),
+        str(x[2]),
+        x[0].split(" ")[-1].lower(),
+        str(x[1])[-1],
+        x[3][::-1].lower()
+        ]),
+        fitler_info_list
+    ))
+    postcard_name = list(map(lambda y: y[0], fitler_info_list))
+    return dict(tuple(zip(postcard_name, postcard_phrase)))
 
 # Question 5
 def win_or_lose(lst, operations):

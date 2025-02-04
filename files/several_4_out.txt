@@ -1,0 +1,5 @@
+name,city,DOB
+Rob,Chicago,Oct 10 2010
+Ella,New York,Apr 09 1970
+Mary,New York.,Jan 01 2004
+Jaden,Texas,Dec 25 2005

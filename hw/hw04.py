@@ -258,14 +258,17 @@ nas'}
     {'Jaden Goelkel': 'jad40goelkel4htrow trof', 'Jaden Lee': 'jad25lee0osap \
 le'}
     """
-    fitler_info_list  = list(filter(lambda x: x[1] < 75, info_list))
+    first_three = 3
+    price_limit = 75
+    age_index = 2
+    fitler_info_list  = list(filter(lambda x: x[1] < price_limit, info_list))
     postcard_phrase = list(map(
         lambda x: ''.join([
-        x[0][:3].lower(),
-        str(x[2]),
+        x[0][:first_three].lower(),
+        str(x[age_index]),
         x[0].split(" ")[-1].lower(),
         str(x[1])[-1],
-        x[3][::-1].lower()
+        x[first_three][::-1].lower()
         ]),
         fitler_info_list
     ))
@@ -289,15 +292,47 @@ def win_or_lose(lst, operations):
     ['Team lost', 'Team lost', 'Team lost', 'Team won', 'Team won', 'Team won']
 
     # Add at least 3 doctests below here #
+    #1
+    >>> lst = [1,2,3,4,5,]
+    >>> operations_3 = [('advance', 5)]
+    >>> win_or_lose(lst, operations_3)
+    [6, 7, 8, 9, 10]
+    
+    #2
+    >>> lst = [1,2,3,4]
+    >>> operations = [('')]
+    >>> win_or_lose(lst, operations)
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    
+    #3
+    >>> lst = [1,py2,3,4,5]
+    >>> operations_5 = [('tie', 5)]
+    >>> win_or_lose(lst, operations_5)
+    [5]
+    
     """
-    # TODO: Fill out the lambda functions as dictionary values
-    # Break lines if go past 79 characters
+    assert isinstance(lst, list)
+    assert len(lst) > 0
+    assert all([isinstance(i, int) for i in lst])
+    assert isinstance(operations, list)
+    assert all([isinstance(i, tuple) for i in operations])
+    assert all([i[0] in ["advance",'lost','tie','eliminate','win'] for i in operations])
     commands = {
-            'advance': lambda lst, amount: ...,
-            'lost': lambda lst, amount: ...,
-            'tie': lambda lst, threshold: ...,
-            'eliminate':  lambda lst, symbol: ...,
-            'win': lambda lst, message: ...,
+            'advance': lambda lst, amount: list(map(lambda x: x + amount,
+                                                    lst)),
+            'lost': lambda lst, amount: list(map(lambda x: x - amount,
+                                                 lst)),
+            'tie': lambda lst, threshold: list(filter(lambda x: x >= 
+                                                      threshold, lst)),
+            'eliminate':  lambda lst, symbol: list(map(lambda x: symbol + 
+                                                       "won" if x > 0 
+                                                       else symbol +
+                                                       "lost", lst)),
+            'win': lambda lst, message: message + str(sum(lst))
     }
-    # YOUR CODE GOES HERE #
-    return
+    results = lst
+    for x in operations:
+        results = commands[x[0]](results, x[1])
+    return results

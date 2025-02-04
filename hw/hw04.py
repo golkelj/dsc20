@@ -258,6 +258,16 @@ nas'}
     {'Jaden Goelkel': 'jad40goelkel4htrow trof', 'Jaden Lee': 'jad25lee0osap \
 le'}
     """
+    third_item = 2
+    fourth_item = 3 
+    assert isinstance(info_list, list)
+    assert all([isinstance(i, tuple) for i in info_list])
+    assert all([isinstance(i[0], str) for i in info_list])
+    assert all([isinstance(i[1], int) for i in info_list])
+    assert all([i[1]> 0 for i in info_list])
+    assert all([i[third_item] for i in info_list])
+    assert all([isinstance(i[third_item], int) for i in info_list])
+    assert all([isinstance(i[fourth_item], str) for i in info_list])
     first_three = 3
     price_limit = 75
     age_index = 2
@@ -278,10 +288,14 @@ le'}
 # Question 5
 def win_or_lose(lst, operations):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Takes a list of scores and then applies an operation to it that \
+    either changes the score, removes values, or returns a string. 
+    
+    advance: adds points 
+    lost: removes points
+    tie: will remove teams below a certain number for 4
+    eliminate: will return "lost' or "won" based on points
+    win: will return sum of all the points
 
     >>> lst = [1, 12, 123, 1234, 12345, 123456]
     >>> operations_1 = [('advance', 5), ('lost', 3), ('tie', 4)]
@@ -307,7 +321,7 @@ def win_or_lose(lst, operations):
     AssertionError
     
     #3
-    >>> lst = [1,py2,3,4,5]
+    >>> lst = [1,2,3,4,5]
     >>> operations_5 = [('tie', 5)]
     >>> win_or_lose(lst, operations_5)
     [5]

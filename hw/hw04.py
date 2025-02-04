@@ -332,7 +332,8 @@ def win_or_lose(lst, operations):
     assert all([isinstance(i, int) for i in lst])
     assert isinstance(operations, list)
     assert all([isinstance(i, tuple) for i in operations])
-    assert all([i[0] in ["advance",'lost','tie','eliminate','win'] for i in operations])
+    assert all([i[0] in ["advance",'lost','tie','eliminate','win'] 
+                for i in operations])
     commands = {
             'advance': lambda lst, amount: list(map(lambda x: x + amount,
                                                     lst)),

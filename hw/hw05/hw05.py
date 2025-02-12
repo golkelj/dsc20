@@ -65,6 +65,8 @@ def get_qualified_customers(data, max_avg, min_range):
     assert isinstance(data, dict)
     assert all(isinstance(i[0], str) and isinstance(i[1], list)
                for i in data.items())
+    assert max_avg > 0 
+    assert min_range > 0
     assert all(isinstance(j[1], list) and (not j[1] or
                all(isinstance(i, int)
                for i in j[1])) for j in data.items())
@@ -102,31 +104,37 @@ we are excited to work with you!']
     #1
     >>> msg = "unfortunately we cannot work with you."
     >>> message_to_customers("files/customers2.txt", "w", msg)
-    ['(to: john@jlanalytics.com) Dear John at JL Analytics, unfortunately we cannot work with you.',\
-'(to: sarah@jlanalytics.com) Dear Sarah at JL Analytics, unfortunately we cannot work with you.']
+    ['(to: john@jlanalytics.com) Dear John at JL Analytics, unfortunately we \
+cannot work with you.', '(to: sarah@jlanalytics.com) Dear Sarah at JL \
+Analytics, unfortunately we cannot work with you.']
 
     #2
     >>> msg = "we are excited to work with you!"
-    >>> message_to_customers("files/customers.txt2", "s", msg)
-    ['(to: mike@sendcutsend.com) Dear Mike at SendCutSend, we are excited to work with you!',\
-'(to: emily@sendcutsend.com) Dear Emily at SendCutSend, we are excited to work with you!']
+    >>> message_to_customers("files/customers2.txt", "s", msg)
+    ['(to: mike@sendcutsend.com) Dear Mike at SendCutSend, we are excited to \
+work with you!', '(to: emily@sendcutsend.com) Dear Emily at SendCutSend, \
+we are excited to work with you!']
 
     #3
     >>> msg = "unfortunately we cannot work with you."
     >>> message_to_customers("files/customers3.txt", "w", msg)
-    ['(to: james@cornbreadinc.com) Dear James at CornbreadInc, unfortunately we cannot work with you.', \
-'(to: anna@cornbreadinc.com) Dear Anna at CornbreadInc, unfortunately we cannot work with you.']
+    ['(to: james@cornbreadinc.com) Dear James at CornbreadInc, unfortunately \
+we cannot work with you.', '(to: anna@cornbreadinc.com) Dear Anna at \
+CornbreadInc, unfortunately we cannot work with you.']
 
     """
     output_message = []
     assert isinstance(message, str)
+    assert isinstance(customer_file, str)
+    assert isinstance(message, str)
+    assert isinstance(decision, str)
     assert decision == 's' or decision == 'w'
     with open(customer_file, 'r' ) as reader:
         for i in reader:
             company_name, person, email, decisions = i.split(',')
             if decisions.strip() == decision:
                 output_message.append(f"(to: {email}) Dear {person} at "
-                                      f"{company_name}, {message}")    
+                                      f"{company_name}, {message}")  
     return output_message
 
 # Question 3

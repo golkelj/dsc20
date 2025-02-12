@@ -1,7 +1,7 @@
 """
 DSC 20 Winter 2025 Lab 06
-Name: TODO
-PID: TODO
+Name: Jaden Goelkel
+PID: A18247795
 """
 
 # Question 1
@@ -19,7 +19,7 @@ def complexity_mc():
     True
     """
     # REPLACE ... WITH YOUR ANSWERS (1-10, duplicates allowed) #
-    return [...]
+    return [6, 1, 5, 6, ]
 
 # Question 2.1
 def number_of_adults_1(lst, age = 18):

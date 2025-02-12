@@ -1,0 +1,4 @@
+Addison,0
+Taylor,1
+Jamie,0
+Morgan,0

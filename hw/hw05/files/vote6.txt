@@ -1,0 +1,4 @@
+Joe,0
+Avery,1
+Jordan,0
+Casey,0

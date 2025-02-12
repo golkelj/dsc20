@@ -65,11 +65,12 @@ def get_qualified_customers(data, max_avg, min_range):
     assert isinstance(data, dict)
     assert all(isinstance(i[0], str) and isinstance(i[1], list)
                for i in data.items())
-    assert max_avg > 0 
-    assert min_range > 0
+    assert max_avg > 0 and isinstance(max_avg, int)
+    assert min_range > 0 and isinstance(min_range, int)
     assert all(isinstance(j[1], list) and (not j[1] or
                all(isinstance(i, int)
                for i in j[1])) for j in data.items())
+    
     avgs = lambda x: sum(x) / len(x) if len(x) > 0 else 0
     ranges = lambda x: max(x) - min(x) if len(x) > 1 else 0
     filtered_keys = list(filter(lambda x: avgs(x[1]) <= max_avg and

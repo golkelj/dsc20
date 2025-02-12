@@ -1,0 +1,4 @@
+JL Analytics,John,john@jlanalytics.com,w
+JL Analytics,Sarah,sarah@jlanalytics.com,w
+SendCutSend,Mike,mike@sendcutsend.com,s
+SendCutSend,Emily,emily@sendcutsend.com,s

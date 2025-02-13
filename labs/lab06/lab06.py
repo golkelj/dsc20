@@ -19,7 +19,7 @@ def complexity_mc():
     True
     """
     # REPLACE ... WITH YOUR ANSWERS (1-10, duplicates allowed) #
-    return [6, 1, 5, 6, ]
+    return [6, 1, 5, 6, 4, 6, 10, 5, 7, 6]
 
 # Question 2.1
 def number_of_adults_1(lst, age = 18):
@@ -41,8 +41,7 @@ def number_of_adults_1(lst, age = 18):
     >>> number_of_adults_1([1,2,3,4,5,6,7], age = 2)
     1
     """
-    # YOUR CODE GOES HERE #
-    return
+    return (len([i for i in lst if i < age]) + 2) // 3 
 
 # Question 2.2
 def number_of_adults_2(*args):
@@ -66,7 +65,7 @@ def number_of_adults_2(*args):
     0
     """
     # YOUR CODE GOES HERE #
-    return
+    return (len([i for i in args if i < 18]) + 2) // 3 
 
 # Question 2.3
 def number_of_adults_3(*args, age = 18):
@@ -90,8 +89,7 @@ def number_of_adults_3(*args, age = 18):
     >>> number_of_adults_3(1,2,3,4,5,6,7, age = 2)
     1
     """
-    # YOUR CODE GOES HERE #
-    return
+    return (len([i for i in args if i < age]) + 2) // 3 
 
 # Question 3
 def activities_of_children(activity, **kwargs):
@@ -129,8 +127,7 @@ def activities_of_children(activity, **kwargs):
     >>> activities_of_children("basketball")
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    return [(j[0],any([i.lower() == activity for i in j[1]])) for j in kwargs.items()]
 
 
 # Question 4
@@ -161,8 +158,15 @@ def files_target_count(target, *args):
      'files/file3.txt')
     26
     """
-    # YOUR CODE GOES HERE #
-    return
+    count = 0
+    if target == '' or target == "":
+        return count
+    for file_path in args: 
+        with open(file_path, 'r') as reader:
+            lines = reader.readlines()
+            for line in lines: 
+                count += line.lower().count(target.lower()) 
+    return count
 
 # Question 5
 def field_trip(age_limit, **kwargs):
@@ -193,5 +197,4 @@ def field_trip(age_limit, **kwargs):
     group3 = [3, 1, 7, 88])
     {'group1': 1, 'group2': 2, 'group3': 2}
     """
-    # YOUR CODE GOES HERE #
-    return
+    return dict([(items[0], number_of_adults_3(*items[1], age=age_limit)) for items in kwargs.items()])

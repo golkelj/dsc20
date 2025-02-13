@@ -1,8 +1,8 @@
 """
 DSC 20 Winter 2025 Homework 06
-Name: TODO
-PID: TODO
-Source: TODO
+Name: Jaden Goelkel
+PID: A18247795
+Source: Lecture slides and readings
 """
 
 #Question 1
@@ -28,7 +28,19 @@ def randomize(*args):
 
     # Add AT LEAST 3 doctests below, DO NOT delete this line
     """
-    # YOUR CODE GOES HERE # 
+    dict_out = {}
+    for i in args: 
+        if isinstance(i, str): 
+            dict_out["str"] = i[::2]
+        elif isinstance(i, int): 
+            if i % 2 == 0:
+                dict_out["int"] = True
+            else: 
+                dict_out["int"] = False
+        elif isinstance(i, float): 
+            
+                 
+                
 
 #Question 2
 def rearrange_args(*args, **kwargs):

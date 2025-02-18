@@ -38,9 +38,15 @@ def randomize(*args):
             else: 
                 dict_out["int"] = False
         elif isinstance(i, float): 
-            
-                 
-                
+            if i < 0:
+                dict_out["float"] = abs(i)
+            else:
+                dict_out["float"] = int(i)
+        elif isinstance(i, list): 
+            dict_out["list"] = len(i)
+        else: 
+            dict_out['garbage'] = i
+    return dict_out
 
 #Question 2
 def rearrange_args(*args, **kwargs):
@@ -61,7 +67,8 @@ def rearrange_args(*args, **kwargs):
 
     # Add AT LEAST 3 doctests below, DO NOT delete this line
     """
-    # YOUR CODE GOES HERE # 
+    # YOUR CODE GOES HERE #
+    return 
 
 #Question 3.1
 def count_the_password(lst, password):

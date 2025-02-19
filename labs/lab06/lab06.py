@@ -19,7 +19,7 @@ def complexity_mc():
     True
     """
     # REPLACE ... WITH YOUR ANSWERS (1-10, duplicates allowed) #
-    return [6, 1, 5, 6, 4, 6, 10, 5, 7, 6]
+    return [6, 1, 5, 6, 4, 6, 5, 3, 6, 6]
 
 # Question 2.1
 def number_of_adults_1(lst, age = 18):

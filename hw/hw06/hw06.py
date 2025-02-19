@@ -8,8 +8,9 @@ Source: Lecture slides and readings
 #Question 1
 def randomize(*args):
     """ 
-    This function takes any number of arguments and categorizes them into a dictionary based on their type.
-    It processes strings, integers, floats, lists, and other types differently.
+    This function takes any number of arguments and categorizes them into a \
+    dictionary based on their type. It processes strings, integers, floats, \
+    lists, and other types differently.
 
     >>> randomize(1, 2.3, False, 'DSC20')
     {'int': [False], 'float': [2], 'garbage': [False], 'str': ['DC0']}
@@ -27,15 +28,18 @@ def randomize(*args):
     # Add AT LEAST 3 doctests below, DO NOT delete this line
     # 1
     >>> randomize(3, 4.5, 'hello', [1, 2], None)
-    {'int': [False], 'float': [4], 'str': ['hlo'], 'list': [2], 'garbage': [None]}
+    {'int': [False], 'float': [4], 'str': ['hlo'], 'list': [2], 'garbage':\
+ [None]}
     
     # 2
     >>> randomize('abcdef', 10, -3.14, [3, 4, 5], True)
-    {'str': ['ace'], 'int': [True], 'float': [3.14], 'list': [3], 'garbage': [True]}
+    {'str': ['ace'], 'int': [True], 'float': [3.14], 'list': [3], 'garbage':\
+ [True]}
     
     # 3
-    >>> randomize(0, 'xyz', -1.23, [], False)
-    {'int': [True], 'str': ['xz'], 'float': [1.23], 'list': [0], 'garbage': [False]}
+    >>> randomize(0, 'xyz', -2.23, [], False)
+    {'int': [True], 'str': ['xz'], 'float': [2.23], 'list': [0], 'garbage':\
+ [False]}
     
     """
     everyother = 2
@@ -90,9 +94,9 @@ def rearrange_args(*args, **kwargs):
     []
 
     #2
-    >>> rearrange_args(1, 2, 3, 4, 5)
+    >>> rearrange_args(1, 2, 3, 4)
     [('positional_0', 1), ('positional_1', 2), ('positional_2', 3), \
-('positional_3', 4), ('positional_4', 5)]
+('positional_3', 4)]
 
     #3
     >>> rearrange_args(z=100, a=200, b=300)
@@ -150,14 +154,13 @@ def count_the_password(lst, password):
     1
 
     """
-    if len(lst) == 0: 
-        return 0 
-    if len(lst) == 1: 
+    if len(lst) == 0:
+        return 0
+    if len(lst) == 1:
         if lst[0] == password:
             return 1
-        else: 
-            return 0 
-    
+        else:
+            return 0
     n = 1 if lst[0] == password else 0
     return n + count_the_password(lst[1:], password)
 
@@ -181,7 +184,7 @@ def corrupt_password(input, to_insert):
     >>> corrupt_password('123', '+')
     '1+2+3+'
     """
-    if len(input) == 0: 
+    if len(input) == 0:
         return ''
     n = input[0]
     return n + to_insert + corrupt_password(input[1:], to_insert)
@@ -213,12 +216,12 @@ def outsmart_dragon(lst, password, to_insert):
     >>> outsmart_dragon(['123', 'dragon'], 'dragon', '+')
     ['1+2+3+', 'dragon']
     """
-    if len(lst) == 0: 
+    if len(lst) == 0:
         return []
     
     if lst[0] == password:
         n = [lst[0]]
-    else: 
+    else:
         n = [corrupt_password(lst[0], to_insert)]
     return n + outsmart_dragon(lst[1:], password, to_insert)
 
@@ -242,16 +245,17 @@ def corrupt_with_vowels(input):
     >>> corrupt_with_vowels('aeiou')
     ''
     """
-    if not input: 
+    if not input:
         return ''
     if input[0] in 'aeiouAEIOU':
         return corrupt_with_vowels(input[1:])
-    else: return input[0] + corrupt_with_vowels(input[1:])
+    else:
+        return input[0] + corrupt_with_vowels(input[1:])
 
 #Question 5
 def where_to_go(point1, point2, separator):
     """
-    returns a strings based on the following: 
+    returns a strings based on the following:
     -if point1 > point2, then return a string with all int descending between \
     point1 and point2, and the separator inbetween them. 
     -if point1 < point2, then return a string with all int ascending between \

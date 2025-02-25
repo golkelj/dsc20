@@ -266,6 +266,7 @@ class Song:
     """
     Implementation of a song
     """
+    platform = 'Spotify'
 
     def __init__(self, name, length, album, artist, streams):
         """
@@ -277,31 +278,46 @@ class Song:
         artist (str): name of artist
         streams (int): number of times the song has been streamed
         """
+        assert len(name) > 0
+        assert length > 0
+        assert len(album) > 0
+        assert len(artist) > 0
+        assert streams >= 0
+        self.name = name 
+        self.length = length
+        self.album = album
+        self.artist = artist
+        self.streams = streams
         pass
 
 
     def get_name(self):
         """ Getter for name attribute """
+        return self.name
         pass
 
 
     def get_length(self):
         """ Getter for length attribute """
+        return self.length
         pass
 
 
     def get_album(self):
         """ Getter for album attribute """
+        return self.album
         pass
 
 
     def get_artist(self):
         """ Getter for artist attribute """
+        return self.artist
         pass
 
 
     def get_streams(self):
         """ Getter for streams attribute """
+        return self.streams
         pass
 
 
@@ -309,6 +325,7 @@ class Song:
         """
         String representation of Song
         """
+        return f"'{self.name}' by {self.artist} on '{self.album}' is {self.length} minutes long with {self.streams} streams"
         pass
 
 
@@ -317,6 +334,7 @@ class Song:
         Listens to the song, increasing the stream counter.
         Returns a string with the song name and artist
         """
+        return f"Listening to '{self.name}' by {self.artist}"
         pass
 
 
@@ -326,7 +344,11 @@ class Song:
         return True if successful
         return False if song is already included in playlist
         """
-        pass
+        songs = [song.name for song in playlist.songs]
+        if self.name in songs:
+            return False
+        playlist.songs.append(self)
+        return True
 
 # Question 5
 
@@ -369,8 +391,7 @@ class Playlist:
         """
         String representation of Playlist
         """
-        return f"Playlist '{self.title}' by {self.user} has 
-    {len(self.songs)} songs"
+        return f"Playlist '{self.title}' by {self.user} has {len(self.songs)} songs"
 
 
 
@@ -415,13 +436,15 @@ class Playlist:
         """
         Returns the total amount of streams of the songs in the playlist
         """
-        pass
+        return sum(song.get_streams() for song in self.songs)
 
 
     def get_total_length(self):
         """
         Returns the total length of the playlist
         """
+        total_length = sum(song.get_length() for song in self.songs)
+        return total_length
         pass
 
 
@@ -431,7 +454,12 @@ class Playlist:
         Returns a string that records all the songs played.
         If the playlist is empty, return "Empty"
         """
-        pass
+        if not self.songs:
+            return "Empty"
+        result = ""
+        for song in self.songs:
+            result += f"Listening to '{song.get_name()}' by {song.get_artist()}\n"
+        return result.strip()
     
 
     def combine_playlists(self, other_playlist):
@@ -440,11 +468,15 @@ class Playlist:
         If all songs were added successfully, return True. 
         If not, return the number of songs that weren't added.
         """
-        pass
+        not_added = sum(1 for song in other_playlist.songs if song in self.songs)
+        self.songs.extend(song for song in other_playlist.songs if song not in self.songs)
+        return True if not_added == 0 else not_added
     
 
     def get_most_played_song(self):
         """
         Return the name of the most played song
         """
-        pass
+        if not self.songs:
+            return ''
+        return max(self.songs, key=lambda x: x.get_streams()).get_name()

@@ -68,7 +68,7 @@ def max_or_min_recursion(tup, find_max = True):
             return new
 
 # Question 3
-def find_winner(record, find_max = True):
+def find_winner(record, find_max=True):
     """
     Find the team with highest or lowest score recursively.
 
@@ -87,22 +87,16 @@ def find_winner(record, find_max = True):
     >>> find_winner([('Panda', 10), ('Koala', 10), ('Hippo', 5)], find_max=True)
     'Panda'
     """
-    if len(record) == 0: 
-        return ""
-    if len(record) == 1:
-        return record[0][0]
-    if find_max:
-        new = find_winner(record[1:], find_max)
-        if record[0][1] > record[1][1]:
-            return record[1][0]
-        else:
-            return new
-    elif not find_max:
-        new = find_winner(record[1:], find_max)
-        if record[0][1] < record[1][1]:
-            return record[1][0]
-        else:
-            return new
+    def helper(i, current):
+        if i == len(record):
+            return current[0]
+        new = record[i]
+        if (find_max and new[1] > current[1]) or (not find_max and new[1] < current[1]):
+            current = new
+        return helper(i + 1, current)
+    if not record:
+        return None
+    return helper(1, record[0])
 
 # Question 4
 def from_list_to_dict(lst):
@@ -130,10 +124,10 @@ def from_list_to_dict(lst):
     if len(lst) == 0: 
         return {}
     if len(lst) == 1:
-        return {lst[0][0]: lst[0][1]}
+        return {lst[-1][0]: lst[-1][1]}
     else:
-        new = from_list_to_dict(lst[1:])
-        new[lst[0][0]] = lst[0][1]
+        new = from_list_to_dict(lst[:-1])
+        new[lst[-1][0]] = lst[-1][1]
         return new
 
 # Question 5
@@ -176,10 +170,8 @@ class Mascot:
         self.nickname = nickname
         self.event = event
 
-
     def sing_song(self, song):
         return f"{self.nickname} sings '{song}' at {self.event}"
-
 
     def change_nickname (self, new_name):
         self.nickname = new_name
@@ -200,8 +192,10 @@ class Game:
     """
     mascot = "King Triton"
     
-    def __init__(self, starts, ends):
-        self.starts = starts
-        self.ends = ends
-        
+    def starts():
+        return 'Saturday, November 2'
+    
+    def ends():
+        return 'Sunday, November 17'
+
 

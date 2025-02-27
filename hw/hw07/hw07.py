@@ -100,6 +100,15 @@ def doctests_q3():
     'App already installed'
 
     # Add your own doctests below
+    >>> my_phone = Phone('google', 4000, 64000)
+    >>> my_phone.brand
+    'google'
+    >>> my_phone = Phone('jaden', 4000, 64000)
+    >>> my_phone.brand
+    'jaden'
+    >>> my_phone = Phone('samsumg', 4000, 64000)
+    >>> my_phone.brand
+    'samsumg'
     """
     return
 
@@ -125,10 +134,13 @@ class Phone:
             self.drain_rate = 8
         else:
             self.drain_rate = 15
+
     def use(self, minutes): 
         self.charge -= minutes * self.drain_rate
         if self.charge <= 0:
+            self.charge = 0
             return "Out of charge"
+        
     def recharge(self, minutes):
         self.charge += minutes * self.charge_rate
         if self.charge > self.battery:
@@ -145,12 +157,6 @@ class Phone:
         self.num_apps += 1
         self.apps.add(app_name)
         return 'App installed'
-      
-        
-    
-    
-    pass
-
 
 ############### CLASS PART ##################
 
@@ -278,10 +284,15 @@ class Song:
         artist (str): name of artist
         streams (int): number of times the song has been streamed
         """
+        assert isinstance(name, str)
         assert len(name) > 0
+        assert isinstance(length, float)
         assert length > 0
+        assert isinstance(album, str)
         assert len(album) > 0
+        assert isinstance(artist, str)
         assert len(artist) > 0
+        assert isinstance(streams, int)
         assert streams >= 0
         self.name = name 
         self.length = length
@@ -294,39 +305,39 @@ class Song:
     def get_name(self):
         """ Getter for name attribute """
         return self.name
-        pass
 
 
     def get_length(self):
         """ Getter for length attribute """
         return self.length
-        pass
+ 
 
 
     def get_album(self):
         """ Getter for album attribute """
         return self.album
-        pass
+
 
 
     def get_artist(self):
         """ Getter for artist attribute """
         return self.artist
-        pass
+
 
 
     def get_streams(self):
         """ Getter for streams attribute """
         return self.streams
-        pass
+
 
 
     def __str__(self):
         """
         String representation of Song
         """
-        return f"'{self.name}' by {self.artist} on '{self.album}' is {self.length} minutes long with {self.streams} streams"
-        pass
+        return f"'{self.get_name()}' by {self.get_artist()} " \
+            f"on '{self.get_album()}' is {self.get_length()} minutes long " \
+            f"with {self.get_streams()} streams"
 
 
     def listen(self):
@@ -335,8 +346,6 @@ class Song:
         Returns a string with the song name and artist
         """
         return f"Listening to '{self.name}' by {self.artist}"
-        pass
-
 
     def add_to_playlist(self, playlist):
         """
@@ -344,6 +353,7 @@ class Song:
         return True if successful
         return False if song is already included in playlist
         """
+        assert isinstance(playlist, Playlist)
         songs = [song.name for song in playlist.songs]
         if self.name in songs:
             return False
@@ -366,6 +376,10 @@ class Playlist:
         Attributes:
         songs (list): list used to store songs in playlist
         """
+        assert isinstance(title, str)
+        assert len(title) > 0
+        assert isinstance(user, str)
+        assert len(user) > 0
         self.title = title
         self.user = user
         self.songs = []
@@ -391,7 +405,8 @@ class Playlist:
         """
         String representation of Playlist
         """
-        return f"Playlist '{self.title}' by {self.user} has {len(self.songs)} songs"
+        return f"Playlist '{self.title}' by {self.user} " \
+            f"has {len(self.songs)} songs"
 
 
 
@@ -401,6 +416,7 @@ class Playlist:
         return True if successful
         return False if song is already included in playlist
         """
+        assert isinstance(song, Song)
         if song in self.songs:
             return False
         self.songs.append(song)
@@ -413,6 +429,7 @@ class Playlist:
         return True if successful
         return False if song is not in the playlist
         """
+        assert isinstance(song, Song)
         if song in self.songs:
             self.songs.remove(song)
             return True
@@ -423,30 +440,24 @@ class Playlist:
         """
         Sorts the songs by the sort_by attribute in ascending order
         """
-        if sort_by == 'length':
-            self.songs.sort(key=lambda x: x.get_length())
-        elif sort_by == 'name':
-            self.songs.sort(key=lambda x: x.get_name())
-        elif sort_by == 'streams':
-            self.songs.sort(key=lambda x: x.get_streams())
-        pass
+        assert isinstance(sort_by, str)
+        assert sort_by in ["name", "length", "album", "artist", "streams"]
+        self.songs.sort(key=lambda x: getattr(x, sort_by))
+
 
 
     def get_total_streams(self):
         """
         Returns the total amount of streams of the songs in the playlist
         """
-        return sum(song.get_streams() for song in self.songs)
+        return sum([song.get_streams() for song in self.songs])
 
 
     def get_total_length(self):
         """
         Returns the total length of the playlist
         """
-        total_length = sum(song.get_length() for song in self.songs)
-        return total_length
-        pass
-
+        return sum([song.get_length() for song in self.songs])
 
     def play(self):
         """
@@ -456,10 +467,10 @@ class Playlist:
         """
         if not self.songs:
             return "Empty"
-        result = ""
+        res = ""
         for song in self.songs:
-            result += f"Listening to '{song.get_name()}' by {song.get_artist()}\n"
-        return result.strip()
+            res += song.listen() + '\n'
+        return res.strip()
     
 
     def combine_playlists(self, other_playlist):
@@ -468,8 +479,11 @@ class Playlist:
         If all songs were added successfully, return True. 
         If not, return the number of songs that weren't added.
         """
-        not_added = sum(1 for song in other_playlist.songs if song in self.songs)
-        self.songs.extend(song for song in other_playlist.songs if song not in self.songs)
+        assert isinstance(other_playlist, Playlist)
+        not_added = sum(1 for song in other_playlist.songs 
+                        if song in self.songs)
+        self.songs.extend(song for song in other_playlist.songs 
+                          if song not in self.songs)
         return True if not_added == 0 else not_added
     
 

@@ -125,3 +125,15 @@ function()()
 
 #### - Can be used as a counter 
 
+immutable - the value cannot be changed 
+    - string 
+    - int
+    - tuple 
+    - bool
+    - float 
+
+mutable 
+    - list 
+    - dict
+
+all objects that are related to a object can be mutated

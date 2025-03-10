@@ -18,7 +18,7 @@ def question_1():
 	False
     """
     # YOUR CODE GOES HERE #
-    return
+    return [0, 0, 0, 1, 1, 0, 0, 1, 1, 1]
 
 
 # Question 2
@@ -34,16 +34,13 @@ def question_2():
 	False
     """
     # YOUR CODE GOES HERE #
-    return
+    return [1, 1, 1, 0, 1]
 
 
 # Question 3
 def reverse_list(lst):
     """ 
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Reverse the lists only by mutating the objects
 
     >>> x = [3, 2, 4, 5]
     >>> reverse_list(x)
@@ -64,17 +61,20 @@ def reverse_list(lst):
 
     # Add at least 3 doctests below here #
     """
-    # YOUR CODE GOES HERE #
-    return
+    left = 0 
+    right = len(lst) - 1 
+    
+    while left < right: 
+        lst[left], lst[right] = lst[right], lst[left]
+        left += 1 
+        right -= 1 
+    return None
 
 
 # Question 4
 def swap_lists(alist1, alist2):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    swaps two list of the same size with each other in place
 
     >>> list1 = [1, 2]
     >>> list2 = [3, 4]
@@ -94,5 +94,6 @@ def swap_lists(alist1, alist2):
 
     # Add at least 3 doctests below here #
     """
-    # YOUR CODE GOES HERE #
-    return
+    for i in range(len(alist2)):
+        alist1[i], alist2[i] = alist2[i], alist1[i]
+    return 

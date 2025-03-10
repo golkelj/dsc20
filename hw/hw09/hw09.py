@@ -60,6 +60,19 @@ def reverse_list(lst):
     [1]
 
     # Add at least 3 doctests below here #
+     >>> x = [1]
+    >>> reverse_list(x)
+    >>> x
+    [1]
+     >>> x = [1,2]
+    >>> reverse_list(x)
+    >>> x
+    [2, 1]
+     >>> x = [1,2,3]
+    >>> reverse_list(x)
+    >>> x
+    [3, 2, 1]
+    
     """
     left = 0 
     right = len(lst) - 1 
@@ -93,6 +106,30 @@ def swap_lists(alist1, alist2):
     [4, 2, 6, 8, 90, 45]
 
     # Add at least 3 doctests below here #
+    >>> list1 = []
+    >>> list2 = []
+    >>> swap_lists(list1, list2)
+    >>> print(list1)
+    []
+    >>> print(list2)
+    []
+    
+    >>> list1 = [10, 20]
+    >>> list2 = [30, 40]
+    >>> swap_lists(list1, list2)
+    >>> print(list1)
+    [30, 40]
+    >>> print(list2)
+    [10, 20]
+    
+    >>> list1 = [11, 21]
+    >>> list2 = [31, 41]
+    >>> swap_lists(list1, list2)
+    >>> print(list1)
+    [31, 41]
+    >>> print(list2)
+    [11, 21]
+    
     """
     for i in range(len(alist2)):
         alist1[i], alist2[i] = alist2[i], alist1[i]

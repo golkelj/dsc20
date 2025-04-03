@@ -18,8 +18,8 @@ def question_1():
 	False
     """
     # YOUR CODE GOES HERE #
-    return [0, 0, 0, 1, 1, 0, 0, 1, 1, 1]
-
+    return [0, 0, 0, 1, 1, 0, 0, 1, 0, 1]
+                                   
 
 # Question 2
 def question_2():
@@ -35,7 +35,7 @@ def question_2():
     """
     # YOUR CODE GOES HERE #
     return [1, 1, 1, 0, 1]
-
+              #0
 
 # Question 3
 def reverse_list(lst):
@@ -76,12 +76,11 @@ def reverse_list(lst):
     """
     left = 0 
     right = len(lst) - 1 
-    
     while left < right: 
         lst[left], lst[right] = lst[right], lst[left]
         left += 1 
         right -= 1 
-    return None
+    return 
 
 
 # Question 4

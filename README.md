@@ -137,3 +137,14 @@ mutable
     - dict
 
 all objects that are related to a object can be mutated
+
+
+is - relates to the location of the pointer 
+
+== evalates the content 
+
+
+continue will stop the iterations, and move to the next one 
+pass is simply a placeholder
+
+need to review truth values
